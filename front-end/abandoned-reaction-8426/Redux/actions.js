@@ -1,21 +1,53 @@
-import { logout, loginFail, loginSucc } from "./actionTypes";
+import axios from 'axios'
+import {
+  logout,
+  loginFail,
+  loginSucc,
+  signupSucc,
+  signupFail,
+  signupLoad,
+} from "./actionTypes";
+const HandleSignup = (creds) => async (dispatch) => {
+dispatch({
+    type:signupLoad,
+})
 
-const HandleLogin = (creds)=>async(dispatch)=>{
     try {
-        
-    } catch (error) {
-        return dispatch({
-            type:loginFail,
-            payload:'Login Failed'
-        })
-    }
-}
+        const url=Process.env.SIGNUP_API
+      const res=await axios.post(url,creds);
+    dispatch({
+        type:signupSucc,
+        payload:res.data,
+    })  
+    return res.data
+  } catch (error) {
+    dispatch({
+        type:signupFail
+    })
+  }
 
-const HandleLogout = ()=>{
-    return {
-        type:logout
-    }
-}
 
-export {HandleLogin, HandleLogout}
 
+};
+
+
+
+
+const HandleLogin = (creds) => async (dispatch) => {
+  try {
+
+  } catch (error) {
+    return dispatch({
+      type: loginFail,
+      payload: "Login Failed",
+    });
+  }
+};
+
+const HandleLogout = () => {
+  return {
+    type: logout,
+  };
+};
+
+export { HandleLogin, HandleLogout ,HandleSignup};

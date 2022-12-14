@@ -1,4 +1,6 @@
-import { logout, loginFail, loginSucc } from "./actionTypes";
+import { logout, loginFail, loginSucc,signupSucc,
+    signupFail,
+    signupLoad } from "./actionTypes";
 let initState = {
     email:'',
     isLogin:false,
