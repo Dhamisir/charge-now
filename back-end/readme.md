@@ -1,6 +1,6 @@
 Api 
 
 //register
-(http://localhost:8080/chargebee/register)  Post 
+(http://localhost:8080/chargebee/user/register)  Post 
 //login 
-(http://localhost:8080/chargebee/login)   Post 
+(http://localhost:8080/chargebee/user/login)   Post 
