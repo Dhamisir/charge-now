@@ -2,17 +2,20 @@ import { ChakraProvider } from '@chakra-ui/react';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 import '../styles/globals.css'
+import { ChakraProvider } from '@chakra-ui/react'
+import { Provider } from 'react-redux'
+import { store } from '../Redux/store'
 
 function MyApp({ Component, pageProps }) {
-  return (
-    <ChakraProvider>
-      <Navbar />
-      <Component {...pageProps} />
-      <Footer />
-
-    </ChakraProvider>
+  return(
+    <Provider store={store}>
+      <ChakraProvider>
+        <Navbar />
+        <Component {...pageProps} />
+        <Footer />
+      </ChakraProvider>
+    </Provider>
   )
-
 }
 
 export default MyApp
