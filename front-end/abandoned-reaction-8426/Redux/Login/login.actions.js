@@ -7,11 +7,11 @@ import {
 } from "./login.types";
 export const HandleLogin = (creds) => async (dispatch) => {
   dispatch({ type: LOGIN_REQUEST });
-  console.log(creds)
+  console.log(creds);
   try {
     // const urlh=Process.env.API;
     const res = await axios.post(
-      "https://reqres.in/api/login",
+      "http://localhost:8080/chargebee/user/login",
       creds
     );
     const data = await res.data;
@@ -21,15 +21,13 @@ export const HandleLogin = (creds) => async (dispatch) => {
     });
     return data;
   } catch (error) {
-   return dispatch({
+    dispatch({
       type: LOGIN_ERROR,
       payload: error.message,
     });
   }
 };
 
-export const HandleLogout = () => {
-  return {
-    type: LOGOUT,
-  };
-};
+export const HandleLogout = () => ({
+  type: LOGOUT,
+});

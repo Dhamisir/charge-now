@@ -49,6 +49,18 @@ export default function login() {
       dispatch(HandleLogin(loginCreds));
     }
   };
+  if (isLoading) {
+    return <h1>....Loading</h1>;
+  } else if (isError) {
+    toast({
+      title: "Wrong Credentials",
+      description: "Incorrect Email or Password",
+      status: "error",
+      duration: 4000,
+      isClosable: true,
+    });
+  }
+
   if (isAuth) {
     toast({
       title: "Logged in successfully",
@@ -57,23 +69,8 @@ export default function login() {
       duration: 4000,
       isClosable: true,
     });
-    router.push("/");
-    return
-  }
-  if (isLoading) {
-    return <h1>....Loading</h1>;
-  }
-
-  if (isError) {
-    toast({
-      title: "Wrong Credentials",
-      description: "Incorrect Email or Password",
-      status: "error",
-      duration: 4000,
-      isClosable: true,
-    });
-    router.push("/login");
-    return 
+    router.push("/pricing");
+    return;
   }
 
   return (
@@ -88,12 +85,12 @@ export default function login() {
             ></Image>
           </Stack>
 
-          <Stack>
-            <Text as="i">Don't have an account? </Text>
+          <Flex>
+            <Text as="i" marginTop={"10px"}>Don't have an account? </Text>
             <Button>
               <Link href="/signup">Sign up</Link>{" "}
             </Button>
-          </Stack>
+          </Flex>
         </HStack>
 
         <SimpleGrid
@@ -108,8 +105,7 @@ export default function login() {
           <VStack
             w={"100%"}
             height={"100%"}
-            border={"1px"}
-            borderColor={"black"}
+           
             display={{ base: "none", md: "none", lg: "block" }}
           >
             <Image
@@ -119,15 +115,16 @@ export default function login() {
           </VStack>
           {/* Form side  */}
 
-          <VStack height={"100%"} border={"1px"} borderColor={"red"}>
+          <VStack height={"100%"}>
             <Text
               className={style.leftkro}
-              marginTop={"10px"}
+              marginTop={"40px"}
               textAlign={"left"}
+              as='b'
             >
               Sign in to Chargbee
             </Text>
-            <Stack width={"90%"} spacing={3} marginTop={"20px"}>
+            <Stack width={"90%"} spacing={3} marginTop={"40px"}>
               <Input
                 type="email"
                 placeholder={"name@company.com"}
@@ -155,22 +152,25 @@ export default function login() {
                 </InputRightElement>
               </InputGroup>
             </Stack>
-            <Flex>
-              <Button colorScheme="orange" onClick={handlelogin}>
+            <Flex width={'85%'} justifyContent={'space-between'} marginTop="29px">
+              <Button colorScheme="orange" onClick={handlelogin} width='150px'>
                 Sign in
               </Button>
-              <Text>Forgot password?</Text>
+              <Text fontSize='sm' marginTop={'10px'}>Forgot password?</Text>
             </Flex>
-            <Text>or</Text>
+            <Text className={style.nchekro}>or</Text>
 
-            <Flex>
-              <FcGoogle></FcGoogle>
-              <Button>Sign in With Google</Button>
+            <Flex border={'1px'} borderColor={'blue'}
+            
+            
+            >
+              <FcGoogle className={style.googlefont} ></FcGoogle>
+              <Button colorScheme='twitter' borderRadius={'none'}>Sign in With Google</Button>
             </Flex>
           </VStack>
         </SimpleGrid>
         <Flex>
-          <GiEarthAmerica color={"green"}></GiEarthAmerica>{" "}
+          <GiEarthAmerica color={"green"} fontSize={'20px'}></GiEarthAmerica>{" "}
           <Text>
             You are on our US data hosting centre.Switch to our EU or AU data
             hosting centre.
