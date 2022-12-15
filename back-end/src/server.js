@@ -10,12 +10,12 @@ const PORT= process.env.PORT
  
 const app= express();
 app.use(express.json());
+app.use(cors());
 
 app.use("/chargebee/user",user)
 app.use("/chargebee/software",software)
 app.use('/mailer', mailer)
 
-app.use(cors());
  
  
 app.listen(PORT,async()=>{
