@@ -4,7 +4,8 @@ let initState = {
     isLogin:false,
     msg:'',
     error:false,
-    role:''
+    role:'',
+    mailinglist:[]
 }
 const reducer = (state=initState, {type, payload})=>{
     switch(type){
@@ -15,7 +16,8 @@ const reducer = (state=initState, {type, payload})=>{
                 isLogin:false,
                 msg:'',
                 error:false,
-                role:''
+                role:'',
+                mailinglist:[]
             }
         }
         case(loginFail):{
@@ -35,7 +37,8 @@ const reducer = (state=initState, {type, payload})=>{
                 isLogin:true,
                 msg:'Login Successful',
                 error:false,
-                role:payload.role
+                role:payload.role,
+                mailinglist:[...payload.serviceEmail]
             }
         }
         default:{
