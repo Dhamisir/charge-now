@@ -16,14 +16,12 @@ import {
   HStack,
   useToast,
   Spinner,
-  useFocusEffect
 } from "@chakra-ui/react";
 import { useSelector, useDispatch } from "react-redux";
 // import Link from 'next/link'
 import { registerUser } from "../Redux/Register/register.actions";
 export default function signup() {
-  const { isAuth } = useSelector((store) => store.login);
-  const { isLoading, isError, isRegistered, successMessage, errorMessage } = useSelector((store) => store.register);
+  const { isLoading, isError, isRegistered } = useSelector((store) => store.register);
   const dispatch = useDispatch();
   const toast = useToast();
   const router=useRouter();
@@ -80,7 +78,7 @@ else if(isError){
   return (
     <Stack>
       <SimpleGrid
-        columns={[1, 1, 2, 2]}
+        columns={[1, 1, 1, 2]}
         border={"1px"}
         borderColor={"red"}
         height={"auto"}
