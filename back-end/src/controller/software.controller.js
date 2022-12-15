@@ -41,3 +41,15 @@ exports.deleteSoftware=async(req,res)=>{
         return res.status(400).send(e.message)
     }
 }
+exports.getSingleSoftware=async(req,res)=>{
+    const software = await Software.findById(req.params.id);
+   try{ if(!software){
+        return res.status(401).send("software not found")
+    }
+    else{
+        return res.status(200).send({message:true,service:software})
+    }}
+    catch{
+        return res.status(400).send(e.message)
+    }
+}
