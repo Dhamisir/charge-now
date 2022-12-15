@@ -39,3 +39,29 @@ exports.login=async(req,res)=>{
 }
 
 
+exports.getAllUsersdata=async(req,res)=>{
+   try{ const AllUserData= await User.find();
+    return res.status(200).send({
+        message:"true",
+        Users:AllUserData
+    })
+ } 
+ catch(e){
+    return res.status(400).send(e.message)
+}
+}
+
+exports.getSingleUserData=async(req,res)=>{
+    const user = await User.findById(req.params.id);
+    try{ if(!user){
+         return res.status(401).send("user not found")
+     }
+     else{
+         return res.status(200).send({message:true,user:user})
+     }}
+     catch{
+         return res.status(400).send(e.message)
+     }
+}
+
+

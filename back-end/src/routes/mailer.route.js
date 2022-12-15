@@ -6,7 +6,7 @@ const router= express.Router();
 router.post('/sendmail', async (req, res)=>{
     console.log(1111)
     const {email, subject, body} = req.body
-
+    
     let outcome = MailSender(email, subject, body)
 
     if(outcome.error==false){
@@ -18,3 +18,4 @@ router.post('/sendmail', async (req, res)=>{
 
 
 module.exports = router
+
