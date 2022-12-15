@@ -37,7 +37,7 @@ const [registerCreds, setregisterCreds] = useState({})
    if(
    !registerCreds.name ||
    !registerCreds.email ||
-   !registerCreds.companyname ||
+   !registerCreds.companyName ||
    !registerCreds.password 
 
    ){
@@ -60,7 +60,8 @@ const [registerCreds, setregisterCreds] = useState({})
    }
 };
 if(isRegistered){
-  return router.push('/login')
+  router.push('/login')
+  return 
 }
 if(isLoading){
   return <h1>....loading</h1>
@@ -191,7 +192,7 @@ else if(isError){
                 type="text"
                 placeholder={"Enter Your Company name"}
                 onChange={handleChange}
-                name="companyname"
+                name="companyName"
               />
 
               <FormLabel>Password</FormLabel>

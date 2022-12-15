@@ -10,6 +10,7 @@ import {
   InputGroup,
   InputRightElement,
   Flex,
+  useToast
 } from "@chakra-ui/react";
 import { FcGoogle } from "react-icons/fc";
 import Link from "next/link";
@@ -17,10 +18,26 @@ import { GiEarthAmerica } from "react-icons/gi";
 
 import style from "../styles/Login.module.css";
 import React from "react";
+import { useSelector } from "react-redux";
 
 export default function login() {
-  const [show, setShow] = React.useState(false);
+  const {isAuth,isLoading,isError}=useSelector((store)=>store.login)
+    const [show, setShow] = React.useState(false);
+    const toast = useToast();
   const handleClick = () => setShow(!show);
+  const [loginCreds, setLoginCreds] = React.useState({});
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setLoginCreds({
+      ...loginCreds,
+      [name]: value,
+    });
+  };
+  const handlelogin=()=>{
+
+  }
+  
   return (
     <Stack className={style.starting}>
       <VStack>
@@ -76,8 +93,8 @@ export default function login() {
               <Input
                 type="email"
                 placeholder={"name@company.com"}
-                // onChange={handleChange}
-                // name="email"
+                onChange={handleChange}
+                name="email"
               />
 
               <InputGroup size="md">
@@ -85,6 +102,8 @@ export default function login() {
                   pr="4.5rem"
                   type={show ? "text" : "password"}
                   placeholder="Enter password"
+                  name='password'
+                   onChange={handleChange}         
                 />
                 <InputRightElement width="4.5rem">
                   <Button
@@ -106,7 +125,7 @@ export default function login() {
 
             <Flex>
               <FcGoogle></FcGoogle>
-              <Button>Sign in With Google</Button>
+              <Button onClick={handlelogin}>Sign in With Google</Button>
             </Flex>
           </VStack>
         </SimpleGrid>

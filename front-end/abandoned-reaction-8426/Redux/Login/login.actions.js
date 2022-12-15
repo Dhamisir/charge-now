@@ -8,8 +8,8 @@ LOGOUT
 export const HandleLogin = (creds) => async (dispatch) => {
  dispatch({type: LOGIN_REQUEST})
   try {
-const urlh=Process.env.LOGIN_API;
-const res=await axios.post(urlh,creds);
+const urlh=Process.env.API;
+const res=await axios.post(`${urlh}/chargebee/user/login`,creds);
 dispatch({
   type:LOGIN_SUCCESS,
   payload:res.data,

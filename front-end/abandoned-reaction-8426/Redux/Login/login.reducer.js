@@ -9,6 +9,7 @@ let initState = {
   isLoading: false,
   isError: false,
   token: "",
+  user:{},
 };
 export const loginReducer = (state = initState, { type, payload }) => {
   switch (type) {
