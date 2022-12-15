@@ -14,7 +14,9 @@ import {
   Text,
   HStack,
 } from "@chakra-ui/react";
-
+import {useSelector,useDispatch} from 'react-redux'
+// import Link from 'next/link'
+import {registerUser} from '../Redux/Register/register.actions'
 export default function signup() {
   return (
     <Stack>
