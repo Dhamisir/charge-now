@@ -13,7 +13,7 @@ app.use(express.json());
 
 app.use("/chargebee/user",user)
 app.use("/chargebee/software",software)
-app.use('/mailer', mailer)
+// app.use('/mailer', mailer)
 
 app.use(cors());
  
