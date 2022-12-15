@@ -11,6 +11,7 @@ import {
   InputRightElement,
   Flex,
   useToast,
+  CircularProgress
 } from "@chakra-ui/react";
 import { FcGoogle } from "react-icons/fc";
 import Link from "next/link";
@@ -20,6 +21,7 @@ import style from "../styles/Login.module.css";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { HandleLogin } from "../Redux/Login/login.actions";
+// import {Loading} from '../components/Loading'
 
 export default function login() {
   const { isAuth, isLoading, isError } = useSelector((store) => store.login);
@@ -50,7 +52,7 @@ export default function login() {
     }
   };
   if (isLoading) {
-    return <h1>....Loading</h1>;
+    return (<Image src="https://flevix.com/wp-content/uploads/2020/01/Bounce-Bar-Preloader-1.gif" width={'100%'} marginTop={'-30px'}></Image>)
   } else if (isError) {
     toast({
       title: "Wrong Credentials",

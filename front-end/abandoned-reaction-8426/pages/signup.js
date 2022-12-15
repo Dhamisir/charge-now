@@ -64,7 +64,7 @@ if(isRegistered){
   return 
 }
 if(isLoading){
-  return <h1>....loading</h1>
+  return (<Image src="https://flevix.com/wp-content/uploads/2020/01/Bounce-Bar-Preloader-1.gif" width={'100%'} marginTop={'-30px'}></Image>)
 }
 else if(isError){
   return toast({
