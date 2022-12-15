@@ -2,6 +2,8 @@ import DashboardSidebar from "../../components/DashboardSidebar";
 import { Stack, Input, Textarea, Text, Flex, Spacer, Heading, Button } from "@chakra-ui/react";
 import { useState } from "react";
 import Head from 'next/head'
+import axios from 'axios'
+import { useSelector } from "react-redux";
 
 const initState = {
     email:"",
@@ -11,17 +13,34 @@ const initState = {
 
 export default function Home() {
     const [form, changeForm] = useState(initState)
+    const user = useSelector(state=>state)
+    const [error, changeError] = useState("")
+
+    const sendMails = async () => {
+        let res = await axios.post('http://localhost:8080/mailer/sendmail', form)
+        let data = await res.data
+
+        if(data.error==false){
+            changeError('Mails sent successfully!')
+            setTimeout(()=>{
+                changeError('')
+            }, 7000)
+        } else {
+            changeError("Mail sending failed")
+        }
+    }
+
 
     const handleChange = (e) => {
         let name = e.target.name
         changeForm({
             ...form,
-            [name]:e.target.value
+            [name]:e.target.value,
+            email:user.email
         })
     }
 
     const sendEmails = ()=>{
-        console.log(form)
         changeForm({
             ...initState
         })
