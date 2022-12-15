@@ -2,7 +2,7 @@ import { Box, Grid, GridItem, Heading, Image, Text } from "@chakra-ui/react"
 
 const Trusted = () => {
     return (
-        <Box p="25px" boxShadow='dark-lg' w={{ base: "90%", md: "60%" }} m="auto" >
+        <Box p="25px" boxShadow='lg' w={{ base: "90%", md: "60%" }} m="auto" >
             <Grid alignItems="center" templateColumns={{ base: 'repeat(1,1fr)', xl: "20% 70%" }} gap={6}>
                 <GridItem w='100%'>
                     <Image m="auto" w={{ base: "50%", xl: "100%" }} src="https://webstatic.chargebee.com/assets/web/543/images/g2-badge-collection/chargebee-leader-subscription-management-g2-spring.svg" />
