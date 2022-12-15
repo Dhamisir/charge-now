@@ -34,35 +34,34 @@ const [registerCreds, setregisterCreds] = useState({})
   })
   };
   const handleClick = () => {
-  //  if(
-  //  !registerCreds.name ||
-  //  !registerCreds.email ||
-  //  !registerCreds.companyName ||
-  //  !registerCreds.password 
+   if(
+   !registerCreds.name ||
+   !registerCreds.email ||
+   !registerCreds.companyName ||
+   !registerCreds.password 
 
-  //  ){
-  //   toast({
-  //     title: "All fields are mandatory",
-  //     description: "Please fill all the details",
-  //     status: "error",
-  //     duration: 4000,
-  //     isClosable: true,
-  //   })
-  //  }else{
-  //   toast({
-  //     title: "Your account is created",
-  //     description: "We've created your account for you.",
-  //     status: "success",
-  //     duration: 4000,
-  //     isClosable: true,
-  //   });
-  // }
-  dispatch(registerUser(registerCreds))
+   ){
+    toast({
+      title: "All fields are mandatory",
+      description: "Please fill all the details",
+      status: "error",
+      duration: 4000,
+      isClosable: true,
+    })
+   }else{
+    toast({
+      title: "Your account is created",
+      description: "We've created your account for you.",
+      status: "success",
+      duration: 4000,
+      isClosable: true,
+    });
+    dispatch(registerUser(registerCreds))
+  }
 };
 if(isRegistered){
   router.push('/login')
- 
- 
+  return 
 }
 if(isLoading){
   return <h1>....loading</h1>

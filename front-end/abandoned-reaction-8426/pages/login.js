@@ -15,7 +15,7 @@ import {
 import { FcGoogle } from "react-icons/fc";
 import Link from "next/link";
 import { GiEarthAmerica } from "react-icons/gi";
-import {useRouter} from 'next/router';
+import { useRouter } from "next/router";
 import style from "../styles/Login.module.css";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -28,7 +28,7 @@ export default function login() {
   const handleClick = () => setShow(!show);
   const [loginCreds, setLoginCreds] = React.useState({});
   const dispatch = useDispatch();
-  const router=useRouter();
+  const router = useRouter();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLoginCreds({
@@ -46,31 +46,35 @@ export default function login() {
         isClosable: true,
       });
     } else {
-    dispatch(HandleLogin(loginCreds))
+      dispatch(HandleLogin(loginCreds));
     }
   };
-if(isLoading){
-  return <h1>....Loading</h1>
-}else if(isError){
-  toast({
-    title: "Wrong Credentials",
-    description: "Incorrect Email or Password",
-    status: "error",
-    duration: 4000,
-    isClosable: true,
-  });
-  router.push("/login")
-}
-if(isAuth){
-  toast({
-    title: "Logged in successfully",
-    description: "Go and get exciting offers...",
-    status: "success",
-    duration: 4000,
-    isClosable: true,
-  });
-router.push('/')
-}
+  if (isAuth) {
+    toast({
+      title: "Logged in successfully",
+      description: "Go and get exciting offers...",
+      status: "success",
+      duration: 4000,
+      isClosable: true,
+    });
+    router.push("/");
+    return
+  }
+  if (isLoading) {
+    return <h1>....Loading</h1>;
+  }
+
+  if (isError) {
+    toast({
+      title: "Wrong Credentials",
+      description: "Incorrect Email or Password",
+      status: "error",
+      duration: 4000,
+      isClosable: true,
+    });
+    router.push("/login");
+    return 
+  }
 
   return (
     <Stack className={style.starting}>
@@ -152,14 +156,16 @@ router.push('/')
               </InputGroup>
             </Stack>
             <Flex>
-              <Button colorScheme="orange">Sign in</Button>
+              <Button colorScheme="orange" onClick={handlelogin}>
+                Sign in
+              </Button>
               <Text>Forgot password?</Text>
             </Flex>
             <Text>or</Text>
 
             <Flex>
               <FcGoogle></FcGoogle>
-              <Button onClick={handlelogin}>Sign in With Google</Button>
+              <Button>Sign in With Google</Button>
             </Flex>
           </VStack>
         </SimpleGrid>
