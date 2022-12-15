@@ -280,7 +280,7 @@ const NAV_ITEMS = [
     },
     {
         label: 'Pricing',
-        href: '/login'
+        href: '/pricing'
     },
     {
         label: 'Solutions',
@@ -309,7 +309,7 @@ const NAV_ITEMS = [
     },
     {
         label: 'Customers',
-        href: '/login',
+        href: '/customers',
     },
     {
         label: 'Resources',

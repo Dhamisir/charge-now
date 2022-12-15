@@ -50,7 +50,7 @@ const revenueData = [
 ]
 
 export default function Revenue() {
-    console.log(revenueData)
+    // console.log(revenueData)
     return (
         <>
             {
