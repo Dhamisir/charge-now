@@ -16,7 +16,6 @@ import {
   InputRightElement,
   Flex,
   useToast,
-  CircularProgress
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
