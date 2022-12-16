@@ -3,9 +3,22 @@ import { Stack, Text, Flex, Spacer, Heading, Input, Button } from "@chakra-ui/re
 import Head from 'next/head'
 import SingleMailDisplay from "../../components/SingleMailDisplay";
 import { useSelector } from "react-redux";
+import axios from 'axios'
 
 export default function Home() {
     const {mailinglist} = useSelector(state=>state)
+
+    async function register() {
+        let res = await axios.post('http://localhost:8080/chargebee/user/register', {
+            "email":"sadazxvctry@gmail.com",
+            "name":"Nandlal",
+            "companyName":"techshenanigans",
+            "password":"password"
+        })
+        let data = await res.data
+        console.log(data)
+    }
+
     return (
         <>
         <Head>
@@ -46,7 +59,7 @@ export default function Home() {
                 alignSelf='center'
                 >
                     <Input placeholder="Add new email" border='black' w='70%' colorScheme={'whatsapp'} />
-                    <Button colorScheme={'whatsapp'}>Add new email</Button>
+                    <Button colorScheme={'whatsapp'} onClick={register}>Add new email</Button>
                 </Flex>
                 <SingleMailDisplay email='sakshamselwal@gmail.com' />
             </Stack>
