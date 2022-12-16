@@ -309,7 +309,7 @@ const NAV_ITEMS = [
     },
     {
         label: 'Customers',
-        href: '/customers',
+        href: '/contact',
     },
     {
         label: 'Resources',
