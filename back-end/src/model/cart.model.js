@@ -10,9 +10,6 @@ const cartSchema=new mongoose.Schema({
     ref:"user",
     required:true,
   },
-  emailCount:{
-    type:Number,
-  },
   paymentInfo:{
     id:{
       type: String,
@@ -23,10 +20,10 @@ const cartSchema=new mongoose.Schema({
       required: true,
     },
   },
-  paidAt: {
-    type: Date,
-    required: true,
-  }
+  // paidAt: {
+  //   type: Date,
+  //   required: true,
+  // }
 });
 const Cart= mongoose.model("cart",cartSchema);
 module.exports=Cart;

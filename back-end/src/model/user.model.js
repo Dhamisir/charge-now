@@ -12,7 +12,10 @@ const CompanySchema= new mongoose.Schema({
     },
     remainingEmail:{
        type:Number,
-       default:0
+       default:10
+    },
+    serviceName:{
+        type:String,
     },
     serviceEmail:{
       type:[String],
