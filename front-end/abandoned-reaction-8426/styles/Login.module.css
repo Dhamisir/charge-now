@@ -9,3 +9,21 @@
 .nchekro{
     margin-top: 30px;
 }
+
+/* COntact page css is here  */
+
+.mainpagehaicont{
+background-color: #5100AE;
+}
+.contactpageh{
+    margin: auto;
+   height: auto;
+   /* width: 90%; */
+    border: 1px solid red;
+    
+}
+.star{
+    color: red;
+    font-size: 14px;
+    /* margin-top: -10px; */
+}
