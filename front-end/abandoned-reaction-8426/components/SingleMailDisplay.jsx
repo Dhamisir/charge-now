@@ -1,7 +1,45 @@
 import {Flex, Text, Box} from '@chakra-ui/react'
 import { MdDeleteOutline } from "react-icons/md";
+import axios from 'axios' 
+import {useSelector, useDispatch} from 'react-redux'
+import {DelEmail} from '../Redux/Login/login.actions'
+import { useToast } from '@chakra-ui/react';
 
 export default function SingleMailDisplay({email}) {
+    const toast = useToast()
+    const {user} = useSelector(state=>state.login)
+    const dispatch = useDispatch()
+
+    const handleDelEmail = async ()=>{
+        const res = await axios.post('http://localhost:8080/mailer/delServiceEmail', {
+            "email":user.email,
+            "delEmail":email
+        })
+        let data = await res.data
+
+        if(!data.error){
+            dispatch(DelEmail(data.serviceEmail))
+            toast({
+                position: 'bottom-left',
+                render: () => (
+                  <Box color='white' p={3} bg='green' borderRadius={'5px'}>
+                    Email deleted successfully
+                  </Box>
+                ),
+              })
+        } else {
+            toast({
+                position: 'bottom-left',
+                render: () => (
+                  <Box color='white' p={3} bg='red' borderRadius={'5px'}>
+                    Email delete failed
+                  </Box>
+                ),
+              })
+        }
+
+    }
+
     return (
         <>
             <Flex
@@ -33,6 +71,7 @@ export default function SingleMailDisplay({email}) {
             <Box
             mt='5px'
             ml='15px'
+            onClick={handleDelEmail}
             >
                 <MdDeleteOutline size='30' />
             </Box>

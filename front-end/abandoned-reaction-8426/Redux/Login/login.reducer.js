@@ -3,14 +3,17 @@ import {
   LOGIN_SUCCESS,
   LOGIN_ERROR,
   LOGOUT,
+  AddServiceEmail,
+  DelServiceEmail
 } from "./login.types";
+
 let initState = {
   isAuth: false,
   isLoading: false,
   isError: false,
-  token: "",
   user:{},
 };
+
 export const loginReducer = (state = initState, { type, payload }) => {
   switch (type) {
     case LOGIN_REQUEST: {
@@ -23,10 +26,9 @@ export const loginReducer = (state = initState, { type, payload }) => {
       return {
         ...state,
         isAuth:true,
-        token:payload,
         isLoading: false,
         isError:false,
-
+        user:payload
       };
     }
     case LOGIN_ERROR: {
@@ -35,18 +37,32 @@ export const loginReducer = (state = initState, { type, payload }) => {
         isError: true,
         isLoading:false,
         errorMessage:payload,
-        
       };
     }
     case LOGOUT: {
         return {
           ...state,
-       isAuth:false,
-       token:''
-          
+          isAuth:false
         };
       }
-    
+    case AddServiceEmail:{
+      return {
+        ...state, 
+        user:{
+          ...state.user,
+          serviceEmail:payload
+        }
+      }
+    }
+    case DelServiceEmail:{
+      return {
+        ...state, 
+        user:{
+          ...state.user,
+          serviceEmail:payload
+        }
+      }
+    }
     default: {
       return {
         ...state,
