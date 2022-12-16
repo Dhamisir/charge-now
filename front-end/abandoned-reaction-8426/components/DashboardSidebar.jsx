@@ -2,13 +2,20 @@ import {Stack, Text, Button, Box, Flex, Spacer} from '@chakra-ui/react'
 import {ArrowForwardIcon} from "@chakra-ui/icons"
 import {useSelector} from 'react-redux'
 import { BiSupport } from "react-icons/bi";
-import Link from 'next/Link'
 import {useRouter} from 'next/Router'
+import { Spinner } from '@chakra-ui/react'
+import { useEffect } from 'react';
 
 export default function DashboardSidebar() {
-    let auth = useSelector(state=>state)
-    let nav = useRouter() 
-
+    const {user, isAuth} = useSelector(state=>state.login)
+    const nav = useRouter()
+    
+    useEffect(()=>{
+        if(!isAuth){
+            nav.push('/login')
+            return 
+        }        
+    }, [])
     return (
         <>
         <Stack 
@@ -28,20 +35,24 @@ export default function DashboardSidebar() {
             color='white'
             p='3%'
             >
-                <Text>Aerosur</Text>
-                <Text>aerosur.test@chargenow.com</Text>
+                <Text
+                fontSize='18px'
+                >{user.companyName}</Text>
+                <Text
+                fontSize='14px'
+                >{user.companyName}@chargenow.com</Text>
                 <Button colorScheme='whatsapp' rightIcon={<ArrowForwardIcon />}>Select Plan</Button>
             </Stack>
             <Stack
             >
                 <Button 
-                hidden={auth.role=='admin'?true:false}
+                hidden={user.role=='admin'?true:false}
                 onClick={()=>{
                     nav.push('/dashboard/home')
                 }}
                 >Home</Button>
                 <Button 
-                hidden={auth.role=='admin'?true:false}
+                hidden={user.role=='admin'?true:false}
                 onClick={()=>{
                     nav.push('/dashboard/mailinglist')
                 }}
@@ -49,9 +60,9 @@ export default function DashboardSidebar() {
                     Mailing List
                 </Button>
                 <Button>Subscriptions</Button>
-                <Button hidden={auth.role=='admin'?true:false}>Invoice</Button>
-                <Button hidden={auth.role=='admin'?false:true}>Users</Button>
-                <Button hidden={auth.role=='admin'?false:true}>Add Plans</Button>
+                <Button hidden={user.role=='admin'?true:false}>Invoice</Button>
+                <Button hidden={user.role=='admin'?false:true}>Users</Button>
+                <Button hidden={user.role=='admin'?false:true}>Add Plans</Button>
             </Stack>
             <Spacer></Spacer>
             <Stack>
@@ -71,13 +82,13 @@ export default function DashboardSidebar() {
                     color='white'
                     textAlign='center'
                     mt='7px'
-                    >U</Text>
+                    >{user.name[0]}</Text>
                 </Box>
                 <Text
                 mt='5px'
                 fontSize='20px'
                 fontWeight={'bolder'}
-                >User</Text>
+                >{user.name}</Text>
                 <Spacer></Spacer>
             </Flex>
             </Stack>

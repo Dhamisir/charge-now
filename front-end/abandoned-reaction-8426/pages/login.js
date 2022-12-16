@@ -71,7 +71,7 @@ export default function login() {
       duration: 4000,
       isClosable: true,
     });
-    router.push("/pricing");
+    router.push("/dashboard/home");
     return;
   }
 

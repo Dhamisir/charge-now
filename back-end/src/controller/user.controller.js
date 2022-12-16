@@ -32,7 +32,7 @@ exports.login=async(req,res)=>{
         const refreshToken=jwt.sign({id:user._id},"REFRESHSECRET",{
             expiresIn:"28 days"
         })
-        return res.send({message:"Login success",token, refreshToken})
+        return res.send({message:"Login success",token, refreshToken, user:user})
     }
 
     return res.status(401).send("Invalid credentials");
