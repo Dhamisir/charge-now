@@ -1,0 +1,42 @@
+.App {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  text-align: center;
+}
+.serviceMain {
+  background-color: gray;
+}
+
+.getThe {
+  font-size: 2.8rem;
+  font-weight: bold;
+  font-family: "Bitter", serif;
+  line-height: 3rem;
+  padding-top: 1rem;
+}
+
+.chooseThe {
+  font-size: 3.5rem;
+  font-weight: bold;
+  font-family: "Bitter", serif;
+  line-height: 3.5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.we {
+  font-size: 3rem;
+  font-weight: bold;
+  font-family: "Bitter", serif;
+  line-height: 3rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.we2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  font-family: "Bitter", serif;
+  line-height: 3rem;
+  margin-top: -20px;
+}

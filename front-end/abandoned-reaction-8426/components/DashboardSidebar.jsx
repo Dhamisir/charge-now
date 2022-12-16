@@ -1,7 +1,9 @@
-import {Stack, Text, Button, Box, Flex, Spacer} from '@chakra-ui/react'
-import {ArrowForwardIcon} from "@chakra-ui/icons"
-import {useSelector} from 'react-redux'
+import { Stack, Text, Button, Box, Flex, Spacer } from "@chakra-ui/react";
+import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { useSelector } from "react-redux";
 import { BiSupport } from "react-icons/bi";
+import Link from "next/Link";
+import { useRouter } from "next/Router";
 import {useRouter} from 'next/Router'
 import { Spinner } from '@chakra-ui/react'
 import { useEffect } from 'react';
@@ -59,7 +61,9 @@ export default function DashboardSidebar() {
                 >
                     Mailing List
                 </Button>
-                <Button>Subscriptions</Button>
+                <Button onClick={()=>{
+                    nav.push('/dashboard/Services')
+                }}>Subscriptions</Button>
                 <Button hidden={user.role=='admin'?true:false}>Invoice</Button>
                 <Button hidden={user.role=='admin'?false:true}>Users</Button>
                 <Button hidden={user.role=='admin'?false:true}>Add Plans</Button>
@@ -93,6 +97,7 @@ export default function DashboardSidebar() {
             </Flex>
             </Stack>
         </Stack>
-        </>
-    )
+      </Stack>
+    </>
+  );
 }
