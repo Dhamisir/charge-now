@@ -16,6 +16,7 @@ export const loginReducer = (state = initState, { type, payload }) => {
     case LOGIN_REQUEST: {
       return {
         isLoading: true,
+        isError:false,
       };
     }
     case LOGIN_SUCCESS: {
@@ -23,6 +24,8 @@ export const loginReducer = (state = initState, { type, payload }) => {
         ...state,
         isAuth:true,
         token:payload,
+        isLoading: false,
+        isError:false,
 
       };
     }
@@ -30,6 +33,8 @@ export const loginReducer = (state = initState, { type, payload }) => {
       return {
         ...state,
         isError: true,
+        isLoading:false,
+        errorMessage:payload,
         
       };
     }

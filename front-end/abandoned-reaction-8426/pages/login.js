@@ -1,3 +1,8 @@
+import { BiRightArrowAlt } from "react-icons/bi";
+import { FcGoogle } from "react-icons/fc";
+import { GiEarthAmerica } from "react-icons/gi";
+import style from "../styles/Login.module.css";
+import React from "react";
 import {
   HStack,
   SimpleGrid,
@@ -12,14 +17,11 @@ import {
   Flex,
   useToast,
 } from "@chakra-ui/react";
-import { FcGoogle } from "react-icons/fc";
 import Link from "next/link";
-import { GiEarthAmerica } from "react-icons/gi";
-import {useRouter} from 'next/router';
-import style from "../styles/Login.module.css";
-import React from "react";
+import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 import { HandleLogin } from "../Redux/Login/login.actions";
+
 
 export default function login() {
   const { isAuth, isLoading, isError } = useSelector((store) => store.login);
@@ -28,7 +30,7 @@ export default function login() {
   const handleClick = () => setShow(!show);
   const [loginCreds, setLoginCreds] = React.useState({});
   const dispatch = useDispatch();
-  const router=useRouter();
+  const router = useRouter();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLoginCreds({
@@ -46,31 +48,32 @@ export default function login() {
         isClosable: true,
       });
     } else {
-    dispatch(HandleLogin(loginCreds))
+      dispatch(HandleLogin(loginCreds));
     }
   };
-if(isLoading){
-  return <h1>....Loading</h1>
-}else if(isError){
-  toast({
-    title: "Wrong Credentials",
-    description: "Incorrect Email or Password",
-    status: "error",
-    duration: 4000,
-    isClosable: true,
-  });
-  router.push("/login")
-}
-if(isAuth){
-  toast({
-    title: "Logged in successfully",
-    description: "Go and get exciting offers...",
-    status: "success",
-    duration: 4000,
-    isClosable: true,
-  });
-router.push('/')
-}
+  if (isLoading) {
+    return (<Image src="https://flevix.com/wp-content/uploads/2020/01/Bounce-Bar-Preloader-1.gif" width={'100%'} marginTop={'-30px'}></Image>)
+  } else if (isError) {
+    toast({
+      title: "Wrong Credentials",
+      description: "Incorrect Email or Password",
+      status: "error",
+      duration: 4000,
+      isClosable: true,
+    });
+  }
+
+  if (isAuth) {
+    toast({
+      title: "Logged in successfully",
+      description: "Go and get exciting offers...",
+      status: "success",
+      duration: 4000,
+      isClosable: true,
+    });
+    router.push("/pricing");
+    return;
+  }
 
   return (
     <Stack className={style.starting}>
@@ -84,12 +87,13 @@ router.push('/')
             ></Image>
           </Stack>
 
-          <Stack>
-            <Text as="i">Don't have an account? </Text>
-            <Button>
+          <Flex>
+            <Text as="i" marginTop={"10px"}>Don't have an account? </Text>
+            <Button backgroundColor={'none'}>
               <Link href="/signup">Sign up</Link>{" "}
+              <BiRightArrowAlt fontSize={"25px"} marginTop={'40px'}></BiRightArrowAlt>
             </Button>
-          </Stack>
+          </Flex>
         </HStack>
 
         <SimpleGrid
@@ -104,8 +108,7 @@ router.push('/')
           <VStack
             w={"100%"}
             height={"100%"}
-            border={"1px"}
-            borderColor={"black"}
+           
             display={{ base: "none", md: "none", lg: "block" }}
           >
             <Image
@@ -115,15 +118,16 @@ router.push('/')
           </VStack>
           {/* Form side  */}
 
-          <VStack height={"100%"} border={"1px"} borderColor={"red"}>
+          <VStack height={"100%"}>
             <Text
               className={style.leftkro}
-              marginTop={"10px"}
+              marginTop={"40px"}
               textAlign={"left"}
+              as='b'
             >
               Sign in to Chargbee
             </Text>
-            <Stack width={"90%"} spacing={3} marginTop={"20px"}>
+            <Stack width={"90%"} spacing={3} marginTop={"40px"}>
               <Input
                 type="email"
                 placeholder={"name@company.com"}
@@ -151,20 +155,27 @@ router.push('/')
                 </InputRightElement>
               </InputGroup>
             </Stack>
-            <Flex>
-              <Button colorScheme="orange">Sign in</Button>
-              <Text>Forgot password?</Text>
+            <Flex width={'85%'} justifyContent={'space-between'} marginTop="29px">
+              <Button colorScheme="orange" onClick={handlelogin} width='150px'>
+                Sign in
+              </Button>
+              <Text fontSize='sm' marginTop={'10px'}>
+              <Link href='/forgotpassword'>Forgot password?</Link>
+              </Text>
             </Flex>
-            <Text>or</Text>
+            <Text className={style.nchekro}>or</Text>
 
-            <Flex>
-              <FcGoogle></FcGoogle>
-              <Button onClick={handlelogin}>Sign in With Google</Button>
+            <Flex border={'1px'} borderColor={'blue'}
+            
+            
+            >
+              <FcGoogle className={style.googlefont} ></FcGoogle>
+              <Button colorScheme='twitter' borderRadius={'none'}>Sign in With Google</Button>
             </Flex>
           </VStack>
         </SimpleGrid>
         <Flex>
-          <GiEarthAmerica color={"green"}></GiEarthAmerica>{" "}
+          <GiEarthAmerica color={"green"} fontSize={'20px'}></GiEarthAmerica>{" "}
           <Text>
             You are on our US data hosting centre.Switch to our EU or AU data
             hosting centre.
