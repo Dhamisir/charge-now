@@ -10,7 +10,6 @@ import {
 export const HandleLogin = (creds) => async (dispatch) => {
   dispatch({ type: LOGIN_REQUEST });
   try {
-    // const urlh=Process.env.API;
     const res = await axios.post(
       "http://localhost:8080/chargebee/user/login",
       creds
@@ -30,18 +29,17 @@ export const HandleLogin = (creds) => async (dispatch) => {
 
 export const AddEmail = (newEmail) => {
   return {
-    type:AddServiceEmail,
-    payload:newEmail
-  }
-}
+    type: AddServiceEmail,
+    payload: newEmail,
+  };
+};
 
 export const DelEmail = (newEmail) => {
   return {
-    type:DelServiceEmail,
-    payload:newEmail
-  }
-}
-
+    type: DelServiceEmail,
+    payload: newEmail,
+  };
+};
 export const HandleLogout = () => ({
   type: LOGOUT,
 });

@@ -4,7 +4,9 @@ import {
   LOGIN_ERROR,
   LOGOUT,
   AddServiceEmail,
-  DelServiceEmail
+  DelServiceEmail,
+  SEND_OTP,
+  CHECK_OTP
 } from "./login.types";
 
 let initState = {
@@ -12,6 +14,8 @@ let initState = {
   isLoading: false,
   isError: false,
   user:{},
+  otp:'',
+  isOtp:false,
 };
 
 export const loginReducer = (state = initState, { type, payload }) => {
@@ -61,6 +65,19 @@ export const loginReducer = (state = initState, { type, payload }) => {
           ...state.user,
           serviceEmail:payload
         }
+      }
+    }
+    case SEND_OTP:{
+      return{
+...state,
+otp:payload,
+isOtp:true,
+      }
+    }
+    case CHECK_OTP:{
+      return{
+...state,
+
       }
     }
     default: {
