@@ -4,10 +4,11 @@ import {
   LOGIN_SUCCESS,
   LOGIN_ERROR,
   LOGOUT,
+  AddServiceEmail,
+  DelServiceEmail
 } from "./login.types";
 export const HandleLogin = (creds) => async (dispatch) => {
   dispatch({ type: LOGIN_REQUEST });
-  console.log(creds);
   try {
     // const urlh=Process.env.API;
     const res = await axios.post(
@@ -15,18 +16,31 @@ export const HandleLogin = (creds) => async (dispatch) => {
       creds
     );
     const data = await res.data;
-    dispatch({
+    return dispatch({
       type: LOGIN_SUCCESS,
-      payload: data,
+      payload: data.user,
     });
-    return data;
   } catch (error) {
-    dispatch({
+    return dispatch({
       type: LOGIN_ERROR,
       payload: error.message,
     });
   }
 };
+
+export const AddEmail = (newEmail) => {
+  return {
+    type:AddServiceEmail,
+    payload:newEmail
+  }
+}
+
+export const DelEmail = (newEmail) => {
+  return {
+    type:DelServiceEmail,
+    payload:newEmail
+  }
+}
 
 export const HandleLogout = () => ({
   type: LOGOUT,
