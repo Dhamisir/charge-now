@@ -6,7 +6,6 @@ import {
 } from "./register.types";
 export const registerUser = (creds) => async (dispatch) => {
   dispatch({ type: REGISTER_REQUEST });
-  // const API = process.env.API;
   console.log(creds);
   try {
     const res = await axios.post(
