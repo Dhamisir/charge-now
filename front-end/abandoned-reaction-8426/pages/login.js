@@ -1,3 +1,8 @@
+import { BiRightArrowAlt } from "react-icons/bi";
+import { FcGoogle } from "react-icons/fc";
+import { GiEarthAmerica } from "react-icons/gi";
+import style from "../styles/Login.module.css";
+import React from "react";
 import {
   HStack,
   SimpleGrid,
@@ -13,15 +18,11 @@ import {
   useToast,
   CircularProgress
 } from "@chakra-ui/react";
-import { FcGoogle } from "react-icons/fc";
 import Link from "next/link";
-import { GiEarthAmerica } from "react-icons/gi";
 import { useRouter } from "next/router";
-import style from "../styles/Login.module.css";
-import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { HandleLogin } from "../Redux/Login/login.actions";
-// import {Loading} from '../components/Loading'
+
 
 export default function login() {
   const { isAuth, isLoading, isError } = useSelector((store) => store.login);
@@ -89,8 +90,9 @@ export default function login() {
 
           <Flex>
             <Text as="i" marginTop={"10px"}>Don't have an account? </Text>
-            <Button>
+            <Button backgroundColor={'none'}>
               <Link href="/signup">Sign up</Link>{" "}
+              <BiRightArrowAlt fontSize={"25px"} marginTop={'40px'}></BiRightArrowAlt>
             </Button>
           </Flex>
         </HStack>
@@ -158,7 +160,9 @@ export default function login() {
               <Button colorScheme="orange" onClick={handlelogin} width='150px'>
                 Sign in
               </Button>
-              <Text fontSize='sm' marginTop={'10px'}>Forgot password?</Text>
+              <Text fontSize='sm' marginTop={'10px'}>
+              <Link href='/forgotpassword'>Forgot password?</Link>
+              </Text>
             </Flex>
             <Text className={style.nchekro}>or</Text>
 

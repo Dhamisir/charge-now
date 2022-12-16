@@ -1,7 +1,8 @@
 // import styles from '../styles/Signup.module.css';
-import React,{useState} from "react";
+import React, { useState } from "react";
 import style from "../styles/Signup.module.css";
-import {useRouter} from 'next/router'
+import { useRouter } from "next/router";
+import { BiRightArrowAlt } from "react-icons/bi";
 import {
   SimpleGrid,
   Button,
@@ -16,77 +17,78 @@ import {
   HStack,
   useToast,
   Spinner,
+  Flex,
 } from "@chakra-ui/react";
 import { useSelector, useDispatch } from "react-redux";
-import Link from 'next/link'
+import Link from "next/link";
 import { registerUser } from "../Redux/Register/register.actions";
 export default function signup() {
-  const { isLoading, isError, isRegistered } = useSelector((store) => store.register);
+  const { isLoading, isError, isRegistered } = useSelector(
+    (store) => store.register
+  );
   const dispatch = useDispatch();
   const toast = useToast();
-  const router=useRouter();
-const [registerCreds, setregisterCreds] = useState({})
+  const router = useRouter();
+  const [registerCreds, setregisterCreds] = useState({});
   const handleChange = (e) => {
-    const {name,value}=e.target;
-  setregisterCreds({
-    ...registerCreds,
-    [name]:value,
-  })
+    const { name, value } = e.target;
+    setregisterCreds({
+      ...registerCreds,
+      [name]: value,
+    });
   };
   const handleClick = () => {
-   if(
-   !registerCreds.name ||
-   !registerCreds.email ||
-   !registerCreds.companyName ||
-   !registerCreds.password 
-
-   ){
-    toast({
-      title: "All fields are mandatory",
-      description: "Please fill all the details",
+    if (
+      !registerCreds.name ||
+      !registerCreds.email ||
+      !registerCreds.companyName ||
+      !registerCreds.password
+    ) {
+      toast({
+        title: "All fields are mandatory",
+        description: "Please fill all the details",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
+    } else {
+      toast({
+        title: "Your account is created",
+        description: "We've created your account for you.",
+        status: "success",
+        duration: 4000,
+        isClosable: true,
+      });
+      dispatch(registerUser(registerCreds));
+    }
+  };
+  if (isRegistered) {
+    router.push("/login");
+    return;
+  }
+  if (isLoading) {
+    return (
+      <Image
+        src="https://flevix.com/wp-content/uploads/2020/01/Bounce-Bar-Preloader-1.gif"
+        width={"100%"}
+        marginTop={"-30px"}
+      ></Image>
+    );
+  } else if (isError) {
+    return toast({
+      title: "Wrong Credentials",
+      description: "Incorrect Email or Password",
       status: "error",
       duration: 4000,
       isClosable: true,
-    })
-   }else{
-    toast({
-      title: "Your account is created",
-      description: "We've created your account for you.",
-      status: "success",
-      duration: 4000,
-      isClosable: true,
     });
-    dispatch(registerUser(registerCreds))
   }
-};
-if(isRegistered){
-  router.push('/login')
-  return 
-}
-if(isLoading){
-  return (<Image src="https://flevix.com/wp-content/uploads/2020/01/Bounce-Bar-Preloader-1.gif" width={'100%'} marginTop={'-30px'}></Image>)
-}
-else if(isError){
-  return toast({
-    title: "Wrong Credentials",
-    description: "Incorrect Email or Password",
-    status: "error",
-    duration: 4000,
-    isClosable: true,
-  });
-}
 
   return (
     <Stack>
-      <SimpleGrid
-        columns={[1, 1, 1, 2]}
-      
-      
-        height={"auto"}
-      >
+      <SimpleGrid columns={[1, 1, 1, 2]} height={"auto"}>
         <VStack
           width={"65%"}
-         
           className={style.main}
           height={"500px"}
           display={{ base: "none", md: "none", lg: "block" }}
@@ -144,15 +146,22 @@ else if(isError){
           w={{ sm: "90%", md: "90%", lg: "85%" }}
           // w={"85%"}
           // border={"2px"}
-         
+
           spacing={"60px"}
         >
-          <HStack spacing={"100%"} alignItems={"flex-start"}>
+          <HStack  justifyContent={'space-between'} width={'90%'}>
             <Image
               src="https://www.chargebee.com/static/resources/brand/chargebee-logo-black.svg"
               h={"40px"}
             ></Image>{" "}
-            <Button><Link href='/login'>Login</Link></Button>
+            <Flex >
+              {" "}
+              <Button backgroundColor={"white"}>
+                <Link href="/login">Login</Link>
+                <BiRightArrowAlt fontSize={"25px"} marginTop={'40px'}></BiRightArrowAlt>
+              </Button>
+              
+            </Flex>
           </HStack>
 
           <VStack
@@ -208,25 +217,27 @@ else if(isError){
                 I want to be notified about the happenings* at the chargebee
               </Checkbox>
             </FormControl>
-
-            <Button
+<Flex justifyContent={'space-between'} width={'90%'}>
+ <Button
               colorScheme={"blackAlpha"}
               size={"lg"}
-              position={"relative"}
-              right={"165px"}
+             
+            
               onClick={handleClick}
             >
-               {" Complete Signup"}
-               {isLoading && (
+              {" Complete Signup"}
+              {isLoading && (
                 <Spinner
-                thickness="4px"
-                speed="0.55s"
-                emptyColor="gray.200"
-                color="blue.500"
-                size="lg"
-              />
-               )}
+                  thickness="4px"
+                  speed="0.55s"
+                  emptyColor="gray.200"
+                  color="blue.500"
+                  size="lg"
+                />
+              )}
             </Button>
+</Flex>
+           
 
             <Text
               fontSize="xs"
