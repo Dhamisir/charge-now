@@ -29,6 +29,12 @@ export default function DashboardSidebar() {
         pt='1%'
         pb='2%'
         >
+          <Stack
+          backgroundColor='#2C0069'
+          borderRadius='10px'
+          color='white'
+          p='3%'
+          >
           <Text fontSize="18px">{user.companyName}</Text>
           <Text fontSize="14px">{user.companyName}@chargenow.com</Text>
           <Button colorScheme="whatsapp" rightIcon={<ArrowForwardIcon />}>
@@ -90,7 +96,7 @@ export default function DashboardSidebar() {
             <Spacer></Spacer>
           </Flex>
         </Stack>
-      </Stack>
+        </Stack>
     </>
   );
 }
