@@ -82,9 +82,9 @@ export default function login() {
         <HStack margin={"auto"} justifyContent={"space-between"} width={"90%"}>
           <Stack>
             <Image
-              src="https://d2jxbtsa1l6d79.cloudfront.net/static/app-static-assets/core/core-2.3.2/images/brand/cn-logotype-black.svg"
-              width={"50%"}
-              height={"100%"}
+              src="https://user-images.githubusercontent.com/101573792/208240778-3c6c67f7-d48e-47e8-bafb-16d8795d71c3.png"
+              width={"18%"}
+              height={"24%"}
             ></Image>
           </Stack>
 
@@ -113,8 +113,9 @@ export default function login() {
             display={{ base: "none", md: "none", lg: "block" }}
           >
             <Image
-              src="https://webstatic.chargebee.com/assets/web/543/images/summer-release/summer-release-bg.svg"
-              h={"100%"}
+              src="https://user-images.githubusercontent.com/101573792/208240374-b99a438f-bbe3-4b75-b9e0-700cd2b4a5f2.jpeg"
+              h={"90%"}
+              marginTop={"10px"}
             ></Image>
           </VStack>
           {/* Form side  */}
