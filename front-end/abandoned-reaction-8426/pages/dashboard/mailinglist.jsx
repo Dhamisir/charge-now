@@ -1,5 +1,5 @@
 import DashboardSidebar from "../../components/DashboardSidebar";
-import { Stack, Text, Flex, Spacer, Heading, Box, Input, Button, useToast } from "@chakra-ui/react";
+import { Stack, Text, Flex, Spacer, Heading, Box, Input, Button, useToast, SimpleGrid } from "@chakra-ui/react";
 import Head from 'next/head'
 import SingleMailDisplay from "../../components/SingleMailDisplay";
 import { useSelector, useDispatch } from "react-redux";
@@ -78,12 +78,12 @@ export default function Home() {
             </Head>
         <Flex
             backgroundColor={'#EAEAF4'}
+            h='700px'
         >
             <DashboardSidebar />
             <Spacer></Spacer>
             <Stack
             w='80%'
-            h='621px'
             spacing='30px'
             >
                 <Stack
@@ -96,7 +96,6 @@ export default function Home() {
                     <Heading>Welcome, {user.name}</Heading>
                     <Text>View/Update your mailing list here</Text>
                 </Stack>
-    
                 <Stack
                 w='80%'
                 alignSelf={'center'}
@@ -129,9 +128,12 @@ export default function Home() {
                         >Start adding emails to your mailing list</Text>
                     </Stack>
                     : 
-                    user.serviceEmail.map(ele=>{
-                        return <SingleMailDisplay email={ele} />
-                    })}
+                    <SimpleGrid columns={'2'} spacing='25px'>
+                        {user.serviceEmail.map(ele=>{
+                            return <SingleMailDisplay email={ele} />
+                        })}
+                    </SimpleGrid>
+    }
                 </Stack>
             </Stack>
         </Flex>

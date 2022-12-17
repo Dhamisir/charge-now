@@ -2,39 +2,32 @@ import { Stack, Text, Button, Box, Flex, Spacer } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { useSelector } from "react-redux";
 import { BiSupport } from "react-icons/bi";
-import Link from "next/Link";
-import { useRouter } from "next/Router";
-import { Spinner } from "@chakra-ui/react";
-import { useEffect } from "react";
+import {useRouter} from 'next/Router'
+import { useEffect } from 'react';
 
 export default function DashboardSidebar() {
-  const { user, isAuth } = useSelector((state) => state.login);
-  const nav = useRouter();
-
-  useEffect(() => {
-    if (!isAuth) {
-      nav.push("/login");
-      return;
-    }
-  }, []);
-  return (
-    <>
-      <Stack
-        borderRadius={"10px"}
-        boxShadow="rgba(0, 0, 0, 0.35) 0px 5px 15px;"
-        height="621px"
-        backgroundColor={"white"}
-        w="20%"
-        position="fixed"
-        p="0.5%"
-        pt="1%"
-        pb="2%"
-      >
-        <Stack
-          backgroundColor="#2C0069"
-          borderRadius="10px"
-          color="white"
-          p="3%"
+    const {user, isAuth} = useSelector(state=>state.login)
+    const nav = useRouter()
+    
+    useEffect(()=>{
+        if(!isAuth){
+            nav.push('/login')
+            return 
+        }        
+    }, [])
+    return (
+        <>
+        <Stack 
+        borderRadius={'10px'}
+        boxShadow='rgba(0, 0, 0, 0.35) 0px 5px 15px;'
+        height='100%'
+        overflowY={'auto'}
+        backgroundColor={'white'}
+        w='20%'
+        position='fixed'
+        p='0.5%'
+        pt='1%'
+        pb='2%'
         >
           <Text fontSize="18px">{user.companyName}</Text>
           <Text fontSize="14px">{user.companyName}@chargenow.com</Text>

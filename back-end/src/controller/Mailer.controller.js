@@ -13,15 +13,15 @@ const mailTransporter = nodemailer.createTransport({
     }
 })
 
-const MailSender = async (email, subject, body) => {
-    let user = await UserModel.findOne({email:email})
 
+const MailSender = async (req, email, subject, body) => {
+    let user = await UserModel.findOne({email:email})
+    let count = 0
     if(user.remainingEmail<user.serviceEmail.length){
         return {
             error:true
         }
     }
-
     user.serviceEmail.map(ele=>{
         let details = {
             from:GmailMailerId,
@@ -31,6 +31,8 @@ const MailSender = async (email, subject, body) => {
         }
         mailTransporter.sendMail(details, (err)=>{
             console.log(err)
+            count++
+            req.io.emit('new', count)
         })
     })
 
