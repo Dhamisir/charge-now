@@ -5,9 +5,7 @@ exports.addService=async(req,res)=>{
     const {email,softwareId}= req.body;
     const user= await User.findOne({email})
     const software= await Software.findById(softwareId)
-
-    
-    try{
+     try{
       if(user){
          const newuser=await User.findByIdAndUpdate(
             user._id,
