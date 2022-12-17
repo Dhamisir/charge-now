@@ -21,6 +21,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 import { HandleLogin } from "../Redux/Login/login.actions";
+import ChatSystem  from "../components/ChatSystem"
 
 
 export default function login() {
@@ -182,6 +183,12 @@ export default function login() {
           </Text>
         </Flex>
       </VStack>
+    
+    
+    <ChatSystem></ChatSystem>
+    
+    
+    
     </Stack>
   );
 }
