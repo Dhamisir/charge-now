@@ -88,7 +88,7 @@ export default function Footer() {
                     <Logo />
                 </Flex>
                 <Text pt={6} fontSize={'sm'} textAlign={'center'}>
-                    © 2022 Chargee Now. All rights reserved
+                    © 2022 Charge Now. All rights reserved
                 </Text>
             </Box>
         </Box >

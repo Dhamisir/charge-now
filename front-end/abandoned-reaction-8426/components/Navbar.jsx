@@ -17,7 +17,7 @@ import {
 } from '@chakra-ui/react';
 
 import Link from 'next/link';
-
+import Head from 'next/head'
 import {
     HamburgerIcon,
     CloseIcon,
@@ -29,75 +29,82 @@ export default function Navbar() {
     const { isOpen, onToggle } = useDisclosure();
 
     return (
-        <Box>
-            <Flex
-                bg={useColorModeValue('white', 'gray.800')}
-                color={useColorModeValue('black.600', 'white')}
-                minH={'60px'}
-                py={{ base: 2 }}
-                px={{ base: 4 }}
-                borderBottom={1}
-                borderStyle={'solid'}
-                borderColor={useColorModeValue('gray.200', 'gray.900')}
-                align={'center'}>
+        <>
+            <Head>
+                <title>
+                    Charge Now
+                </title>
+            </Head>
+            <Box>
                 <Flex
-                    flex={{ base: 1, md: 'auto' }}
-                    ml={{ base: -2 }}
-                    display={{ base: 'flex', md: 'none' }}>
-                    <IconButton
-                        onClick={onToggle}
-                        icon={
-                            isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
-                        }
-                        variant={'ghost'}
-                        aria-label={'Toggle Navigation'}
-                    />
-                </Flex>
-                <Flex alignItems="center" flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
-                    <Box w={{ base: "30%", md: "5%" }}>
-                        <Link href="/">
-                            <Image src='https://user-images.githubusercontent.com/96005514/207302177-50735bbb-84cc-4e33-9d53-81460dfc4258.png' alt='Charge Now' />
-                        </Link>
-                    </Box>
-                    <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
-                        <DesktopNav />
+                    bg={useColorModeValue('white', 'gray.800')}
+                    color={useColorModeValue('black.600', 'white')}
+                    minH={'60px'}
+                    py={{ base: 2 }}
+                    px={{ base: 4 }}
+                    borderBottom={1}
+                    borderStyle={'solid'}
+                    borderColor={useColorModeValue('gray.200', 'gray.900')}
+                    align={'center'}>
+                    <Flex
+                        flex={{ base: 1, md: 'auto' }}
+                        ml={{ base: -2 }}
+                        display={{ base: 'flex', md: 'none' }}>
+                        <IconButton
+                            onClick={onToggle}
+                            icon={
+                                isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
+                            }
+                            variant={'ghost'}
+                            aria-label={'Toggle Navigation'}
+                        />
                     </Flex>
+                    <Flex alignItems="center" flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
+                        <Box w={{ base: "30%", md: "5%" }}>
+                            <Link href="/">
+                                <Image src='https://user-images.githubusercontent.com/96005514/207302177-50735bbb-84cc-4e33-9d53-81460dfc4258.png' alt='Charge Now' />
+                            </Link>
+                        </Box>
+                        <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
+                            <DesktopNav />
+                        </Flex>
+                    </Flex>
+
+                    <Stack
+                        flex={{ base: 1, md: 0 }}
+                        justify={'flex-end'}
+                        direction={'row'}
+                        spacing={6}>
+                        <Button
+                            as={'a'}
+                            fontSize={'sm'}
+                            fontWeight={400}
+                            variant={'link'}
+                            href={'/login'}>
+                            Login
+                        </Button>
+                        <Button
+                            as={"a"}
+                            display={{ base: 'none', md: 'inline-flex' }}
+                            fontSize={'sm'}
+                            fontWeight={600}
+                            p="0px 25px"
+                            color={'white'}
+                            bg={'#FF7846'}
+                            href={'/signup'}
+                            _hover={{
+                                bg: '#FF7845',
+                            }}>
+                            Sign Up
+                        </Button>
+                    </Stack>
                 </Flex>
 
-                <Stack
-                    flex={{ base: 1, md: 0 }}
-                    justify={'flex-end'}
-                    direction={'row'}
-                    spacing={6}>
-                    <Button
-                        as={'a'}
-                        fontSize={'sm'}
-                        fontWeight={400}
-                        variant={'link'}
-                        href={'/login'}>
-                        Login
-                    </Button>
-                    <Button
-                        as={"a"}
-                        display={{ base: 'none', md: 'inline-flex' }}
-                        fontSize={'sm'}
-                        fontWeight={600}
-                        p="0px 25px"
-                        color={'white'}
-                        bg={'#FF7846'}
-                        href={'/signup'}
-                        _hover={{
-                            bg: '#FF7845',
-                        }}>
-                        Sign Up
-                    </Button>
-                </Stack>
-            </Flex>
-
-            <Collapse in={isOpen} animateOpacity>
-                <MobileNav />
-            </Collapse>
-        </Box>
+                <Collapse in={isOpen} animateOpacity>
+                    <MobileNav />
+                </Collapse>
+            </Box>
+        </>
     );
 }
 
@@ -242,6 +249,7 @@ const MobileNavItem = ({ label, children, href }) => {
                 </Stack>
             </Collapse>
         </Stack>
+
     );
 };
 
@@ -309,7 +317,7 @@ const NAV_ITEMS = [
     },
     {
         label: 'Customers',
-        href: '/customers',
+        href: '/contact',
     },
     {
         label: 'Resources',

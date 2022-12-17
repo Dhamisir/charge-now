@@ -1,6 +1,6 @@
-import {Stack, Text, Button, Box, Flex, Spacer} from '@chakra-ui/react'
-import {ArrowForwardIcon} from "@chakra-ui/icons"
-import {useSelector} from 'react-redux'
+import { Stack, Text, Button, Box, Flex, Spacer } from "@chakra-ui/react";
+import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { useSelector } from "react-redux";
 import { BiSupport } from "react-icons/bi";
 import {useRouter} from 'next/Router'
 import { useEffect } from 'react';
@@ -29,70 +29,68 @@ export default function DashboardSidebar() {
         pt='1%'
         pb='2%'
         >
-            <Stack 
-            backgroundColor='#2C0069'
-            borderRadius='10px'
-            color='white'
-            p='3%'
-            >
-                <Text
-                fontSize='18px'
-                >{user.companyName}</Text>
-                <Text
-                fontSize='14px'
-                >{user.companyName}@chargenow.com</Text>
-                <Button colorScheme='whatsapp' rightIcon={<ArrowForwardIcon />}>Select Plan</Button>
-            </Stack>
-            <Stack
-            >
-                <Button 
-                hidden={user.role=='admin'?true:false}
-                onClick={()=>{
-                    nav.push('/dashboard/home')
-                }}
-                >Home</Button>
-                <Button 
-                hidden={user.role=='admin'?true:false}
-                onClick={()=>{
-                    nav.push('/dashboard/mailinglist')
-                }}
-                >
-                    Mailing List
-                </Button>
-                <Button>Subscriptions</Button>
-                <Button hidden={user.role=='admin'?true:false}>Invoice</Button>
-                <Button hidden={user.role=='admin'?false:true}>Users</Button>
-                <Button hidden={user.role=='admin'?false:true}>Add Plans</Button>
-            </Stack>
-            <Spacer></Spacer>
-            <Stack>
-            <Button leftIcon={<BiSupport />}>Need Help?</Button>
-            <Flex
-            pl='20px'
-            >
-                <Box 
-                backgroundColor='purple'
-                borderRadius='50%'
-                w='40px'
-                h='40px'
-                mr='20px'
-                >
-                    <Text
-                    fontWeight='bold'
-                    color='white'
-                    textAlign='center'
-                    mt='7px'
-                    >{user.name[0]}</Text>
-                </Box>
-                <Text
-                mt='5px'
-                fontSize='20px'
-                fontWeight={'bolder'}
-                >{user.name}</Text>
-                <Spacer></Spacer>
-            </Flex>
-            </Stack>
+          <Text fontSize="18px">{user.companyName}</Text>
+          <Text fontSize="14px">{user.companyName}@chargenow.com</Text>
+          <Button colorScheme="whatsapp" rightIcon={<ArrowForwardIcon />}>
+            Select Plan
+          </Button>
         </Stack>
-        </>
-    )
+        <Stack>
+          <Button
+            hidden={user.role == "admin" ? true : false}
+            onClick={() => {
+              nav.push("/dashboard/home");
+            }}
+          >
+            Home
+          </Button>
+          <Button
+            hidden={user.role == "admin" ? true : false}
+            onClick={() => {
+              nav.push("/dashboard/mailinglist");
+            }}
+          >
+            Mailing List
+          </Button>
+          <Button
+            onClick={() => {
+              nav.push("/dashboard/Services");
+            }}
+          >
+            Subscriptions
+          </Button>
+          <Button hidden={user.role == "admin" ? true : false}>Invoice</Button>
+          <Button onClick={() => {
+            nav.push("/dashboard/admin/alluser");
+          }} hidden={user.role == "admin" ? false : true}>Users</Button>
+          <Button onClick={() => {
+            nav.push("/dashboard/admin/addplans");
+          }} hidden={user.role == "admin" ? false : true}>
+            Add Plans
+          </Button>
+        </Stack>
+        <Spacer></Spacer>
+        <Stack>
+          <Button leftIcon={<BiSupport />}>Need Help?</Button>
+          <Flex pl="20px">
+            <Box
+              backgroundColor="purple"
+              borderRadius="50%"
+              w="40px"
+              h="40px"
+              mr="20px"
+            >
+              <Text fontWeight="bold" color="white" textAlign="center" mt="7px">
+                {user.name[0]}
+              </Text>
+            </Box>
+            <Text mt="5px" fontSize="20px" fontWeight={"bolder"}>
+              {user.name}
+            </Text>
+            <Spacer></Spacer>
+          </Flex>
+        </Stack>
+      </Stack>
+    </>
+  );
 }

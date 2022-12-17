@@ -1,0 +1,41 @@
+import {
+  SERVICE_FAILURE,
+  SERVICE_REQUEST,
+  SERVICE_SUCCESS,
+} from "./services.types";
+
+const initialState = {
+  isLoading: false,
+  isError: false,
+  serviceData: [],
+};
+
+export const serviceReducer = (state = initialState, { type, payload }) => {
+  switch (type) {
+    case SERVICE_REQUEST: {
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+      };
+    }
+    case SERVICE_SUCCESS: {
+      return {
+        ...state,
+        serviceData: payload.softwares,
+        isLoading: false,
+        isError: false,
+      };
+    }
+    case SERVICE_FAILURE: {
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+      };
+    }
+    default: {
+      return state;
+    }
+  }
+};

@@ -1,10 +1,4 @@
-/* @import url('') */
 
-@import url("https://fonts.googleapis.com/css2?family=Unbounded:wght@500&display=swap");
-
-/* .main{
-    background-color: red;
-} */
 .main {
   /* font-family: "Unbounded", cursive;  */
   background-color: #38039A;
@@ -12,16 +6,4 @@
  .downwala{
   background-color: #500AD2;
  }
-/* For Medium screen  */
-@media screen and (min-width: 500px) and (max-width: 1000px) {
-  .main {
-    display: none;
-    background-color: red;
-  }
-}
-/* For small Screen  */
-/* @media screen and (min-width: 10px) and (max-width: 500px) {
-  .main {
-    display: none;
-  }
-} */
+

@@ -1,7 +1,8 @@
 import { BiRightArrowAlt } from "react-icons/bi";
-import { GiEarthAmerica } from "react-icons/gi";
+import { GiEarthAmerica, GiMailShirt } from "react-icons/gi";
 import style from "../styles/Login.module.css";
 import React from "react";
+import { useRouter } from "next/Router";
 import {
   HStack,
   SimpleGrid,
@@ -14,24 +15,63 @@ import {
   FormLabel,
   Flex,
   useToast,
+  AlertIcon,
+  Alert
 } from "@chakra-ui/react";
 
 import Link from "next/link";
+import axios from "axios";
 
 export default function forgotpassword() {
   const toast = useToast();
   const [emaildetails, setemaildetails] = React.useState({})
+  const router=useRouter();
+  const [showinput, setshowinput] =React.useState(true)
+  const [otpdetails, setotpdetails] = React.useState({})
+const [isVerified, setisAuth] = React.useState(false)
+
+  //  For handling gmail input box 
+ 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    // console.log(name,value)
 setemaildetails({
   ...emaildetails,
-  [name]:value,
+  [name]:value
 })
-console.log(emaildetails)
+};
+// For handling otp input boxes 
+const handleotp=(e)=>{
+  const {name,value}= e.target;
+  setotpdetails({
+    ...otpdetails,
+    [name]:value
+  })
+  
+    }
 
+    // For otp verification submit button 
+  const handleotpchange=async()=>{
+    if (!otpdetails.otp || !otpdetails.newPassword) {
+      toast({
+        title: "All fields are mandatory",
+        description: "Please fill all the details",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
+    } 
+  try {
+    const res= await axios.post('http://localhost:8080/mailer/verifyOtp',otpdetails)
+    const data=await res.data
+    setisAuth(true)
+  } catch (error) {
+    console.log(error.message)
+  }
+}
 
-  };
-  const handlepass = () => {
+  // for sending otp on email
+  const handlepass =async () => {
     if (!emaildetails.email) {
       toast({
         title: "All fields are mandatory",
@@ -41,8 +81,26 @@ console.log(emaildetails)
         isClosable: true,
       });
     } 
-  console.log("first")
+    try {
+      const res=await axios.post('http://localhost:8080/mailer/sendotp',emaildetails)
+      const data=await res.data
+      setshowinput(false)
+    } catch (error) {
+      console.log(error)
+    }
+   
+  
   };
+  if(isVerified){
+    <Alert status='success'>
+    <AlertIcon />
+   Your Password Changed Successfully
+  </Alert>
+    
+    router.push('/login')
+    return
+  }
+  
 
   return (
     <Stack className={style.starting}>
@@ -110,8 +168,50 @@ console.log(emaildetails)
               width="90%"
               fontWeight={"10px"}
             >
-              Send reset link
+              Send Otp
             </Button>
+            
+           {/* for the otp verification purpose  */}
+           
+            <Stack width={"90%"} spacing={1} marginTop={"60px"} hidden={showinput}>
+              <FormLabel fontWeight={"13px"}>
+             OTP
+              </FormLabel>
+              <Input
+                type="number"
+                placeholder={"Enter Your Otp"}
+                onChange={handleotp}
+                name="otp"
+              />
+              <FormLabel fontWeight={"13px"}>
+                New Password
+              </FormLabel>
+              <Input
+                type="password"
+                placeholder={"Enter your password"}
+                onChange={handleotp}
+                name="newPassword"
+              />
+            
+            
+            <Button
+              colorScheme="facebook"
+              onClick={handleotpchange}
+              width="90%"
+              fontWeight={"10px"}
+            >
+              Change Password 
+            </Button>
+            
+            </Stack>
+
+
+
+
+
+
+
+
 
             <Text fontSize="sm">
               <Link href="/login">Back to login</Link>
