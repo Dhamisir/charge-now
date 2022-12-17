@@ -1,4 +1,4 @@
-import {Flex, Text, Box} from '@chakra-ui/react'
+import {Flex, Text, Box, Spacer} from '@chakra-ui/react'
 import { MdDeleteOutline } from "react-icons/md";
 import axios from 'axios' 
 import {useSelector, useDispatch} from 'react-redux'
@@ -47,13 +47,13 @@ export default function SingleMailDisplay({email}) {
             width='fit-content'
             p='15px'
             borderRadius={'10px'}
+            w='100%'
             >
             <Box 
             backgroundColor='purple'
             borderRadius='50%'
             w='40px'
             h='40px'
-            mr='20px'
             >
                 <Text
                 fontWeight='bold'
@@ -63,14 +63,14 @@ export default function SingleMailDisplay({email}) {
                 fontSize='20px'
                 >{email[0].toUpperCase()}</Text>
             </Box>
+            <Spacer></Spacer>
             <Text
             mt='5px'
             fontSize='18px'
             >{email}</Text>
-            
+            <Spacer></Spacer>
             <Box
             mt='5px'
-            ml='15px'
             onClick={handleDelEmail}
             >
                 <MdDeleteOutline size='30' />

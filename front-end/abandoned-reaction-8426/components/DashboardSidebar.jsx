@@ -3,7 +3,6 @@ import {ArrowForwardIcon} from "@chakra-ui/icons"
 import {useSelector} from 'react-redux'
 import { BiSupport } from "react-icons/bi";
 import {useRouter} from 'next/Router'
-import { Spinner } from '@chakra-ui/react'
 import { useEffect } from 'react';
 
 export default function DashboardSidebar() {
@@ -21,7 +20,8 @@ export default function DashboardSidebar() {
         <Stack 
         borderRadius={'10px'}
         boxShadow='rgba(0, 0, 0, 0.35) 0px 5px 15px;'
-        height='621px'
+        height='100%'
+        overflowY={'auto'}
         backgroundColor={'white'}
         w='20%'
         position='fixed'

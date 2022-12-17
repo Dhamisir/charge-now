@@ -5,8 +5,8 @@ const router= express.Router();
 
 router.post('/sendmail', async (req, res)=>{
     const {email, subject, body} = req.body
-    
-    let outcome = await MailSender(email, subject, body)
+
+    let outcome = await MailSender(req, email, subject, body)
 
     if(outcome.error==false){
         res.status(200).send({error:false, msg:'Mails sent successfully'})
