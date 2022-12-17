@@ -41,6 +41,7 @@ exports.login=async(req,res)=>{
 
 exports.getAllUsersdata=async(req,res)=>{
    try{ const AllUserData= await User.find();
+    console.log(process.env.paymentKey)
     return res.status(200).send({
         message:"true",
         Users:AllUserData
