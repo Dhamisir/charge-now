@@ -11,11 +11,26 @@ import {
   CircularProgress,
   CircularProgressLabel,
 } from "@chakra-ui/react";
-import axios from "axios";
 import { MdCheckCircle } from "react-icons/md";
-import Link from "next/link";
-export default function Details({ softwareData }) {
-  console.log(softwareData);
+import { singleAction } from "../../../Redux/Services/services.actions";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useRouter } from "next/Router";
+
+export default function Details({ id }) {
+  const dispatch = useDispatch();
+  const nav = useRouter();
+
+  const { singleData } = useSelector((store) => store.service);
+
+  const getService = () => {
+    dispatch(singleAction(id));
+  };
+
+  useEffect(() => {
+    getService();
+  }, []);
+
   return (
     <div>
       <Box bgColor="gray.200" marginLeft="20.5%">
@@ -26,33 +41,60 @@ export default function Details({ softwareData }) {
           ></Image>
           <Text>
             <Text fontSize="2rem">Service Description</Text>
-            Still not sure what you need? Give us a call. We’re happy to help,
-            even if you’re not a customer. Call us at 040-67607600 and we'll
-            chat — or get back to you as soon as we can.
+            <Flex>
+              <Text fontSize={"1.2rem"}>Service Category: </Text>
+              <Text fontSize={"1.4rem"} color="blue.500">
+                {" "}
+                {singleData.object}
+              </Text>
+            </Flex>
             <Flex>
               <Text pt="1rem" pb="5px">
-                Email Usage
+                Email Available
               </Text>
-              <CircularProgress value={40} color="green.400">
-                <CircularProgressLabel>40%</CircularProgressLabel>
+              <CircularProgress value={100} color="blue.500">
+                <CircularProgressLabel>100%</CircularProgressLabel>
               </CircularProgress>
             </Flex>
             <List spacing={3} pb="1rem">
               <ListItem>
-                <ListIcon as={MdCheckCircle} color="green.500" />
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                <Flex>
+                  <ListIcon as={MdCheckCircle} color="green.500" />
+                  <Flex>
+                    <Text>Billing Period:</Text>
+                    <Text color="blue.500">
+                      {singleData.billing_period} month
+                    </Text>
+                  </Flex>
+                </Flex>
               </ListItem>
               <ListItem>
-                <ListIcon as={MdCheckCircle} color="green.500" />
-                Assumenda, quia temporibus eveniet a libero incidunt suscipit
+                <Flex>
+                  <ListIcon as={MdCheckCircle} color="green.500" />
+                  <Flex>
+                    <Text>Email Count:</Text>
+                    <Text color="blue.500">{singleData.emailCount}</Text>
+                  </Flex>
+                </Flex>
               </ListItem>
               <ListItem>
-                <ListIcon as={MdCheckCircle} color="green.500" />
-                Quidem, ipsam illum quis sed voluptatum quae eum fugit earum
+                <Flex alignItems={"center"}>
+                  <ListIcon as={MdCheckCircle} color="green.500" />
+                  <Flex>
+                    <Text>Service Amount: </Text>
+                    <Text color={"blue.500"}>${singleData.serviceAmount}</Text>
+                  </Flex>
+                </Flex>
               </ListItem>
-              {/* You can also use custom icons from react-icons */}
             </List>
-            <Button colorScheme="blue">CheckOut Page</Button>
+            <Button
+              colorScheme="blue"
+              onClick={() => {
+                nav.push("/dashboard/Services/checkout");
+              }}
+            >
+              CheckOut Page
+            </Button>
           </Text>
         </Flex>
         <Box
@@ -96,12 +138,9 @@ const API = process.env.NEXT_PUBLIC_API_LINK;
 
 export async function getServerSideProps(context) {
   const { id } = context.query;
-  let data = await axios.get(
-    `${API}/chargebee/software/getSingleSoftware/${id}`
-  );
   return {
     props: {
-      softwareData: data.data,
-    }, // will be passed to the page component as props
+      id,
+    },
   };
 }
