@@ -17,7 +17,8 @@ const mailTransporter = nodemailer.createTransport({
 const MailSender = async (req, email, subject, body) => {
     let user = await UserModel.findOne({email:email})
     let count = 0
-    if(user.remainingEmail<user.serviceEmail.length){
+    let tobesent = user.serviceEmail.length
+    if(user.remainingEmail<tobesent){
         return {
             error:true
         }
@@ -35,7 +36,8 @@ const MailSender = async (req, email, subject, body) => {
             req.io.emit('new', count)
         })
     })
-
+    let update = await UserModel.findOneAndUpdate({email:email}, {
+        remainingEmail:user.remainingEmail-tobesent})
     return {
         error:false
     }

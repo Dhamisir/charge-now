@@ -25,7 +25,7 @@ import ChatSystem  from "../components/ChatSystem"
 
 
 export default function login() {
-  const { isAuth, isLoading, isError } = useSelector((store) => store.login);
+  const { isAuth, isLoading, isError, user } = useSelector((store) => store.login);
   const [show, setShow] = React.useState(false);
   const toast = useToast();
   const handleClick = () => setShow(!show);
@@ -72,7 +72,8 @@ export default function login() {
       duration: 4000,
       isClosable: true,
     });
-    router.push("/dashboard/home");
+    if(user.role=='user') router.push("/dashboard/home");
+    else if (user.role=='admin') router.push("/dashboard/Services")
     return;
   }
 
