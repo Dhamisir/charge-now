@@ -116,54 +116,53 @@ export default function Services() {
                   emailCount,
                   object,
                 }) => (
-                  <Box
-                    key={_id}
-                    maxW="sm"
-                    height="auto"
-                    borderWidth="1px"
-                    borderRadius="lg"
-                    overflow="hidden"
-                    bgColor="blue.200"
-                    border="2px Solid black"
-                    m="auto"
-                  >
-                    {/* <Link href="/dashboard/Services/service-details">
-                    <img src={url} alt={ialt} />
-                  </Link> */}
-                    <Box p="6">
-                      <Box display="flex" alignItems="baseline">
-                        <Badge borderRadius="full" px="2" colorScheme="teal">
-                          {object} Plan
-                        </Badge>
-                      </Box>
-
-                      <Box
-                        mt="1"
-                        fontWeight="semibold"
-                        as="h4"
-                        lineHeight="tight"
-                        noOfLines={1}
-                      >
-                        {emailCount}
-                      </Box>
-                      <Box
-                        mt="1"
-                        fontWeight="semibold"
-                        as="h4"
-                        lineHeight="tight"
-                        noOfLines={1}
-                      >
-                        {current_term_start}
-                      </Box>
-                      <Box>
-                        {current_term_end}
-                        <Box as="span" color="gray.600" fontSize="sm">
-                          / month
+                  <Link href={`/dashboard/Services/${_id}`}>
+                    <Box
+                      key={_id}
+                      maxW="sm"
+                      height="auto"
+                      borderWidth="1px"
+                      borderRadius="lg"
+                      overflow="hidden"
+                      bgColor="blue.200"
+                      border="2px Solid black"
+                      m="auto"
+                    >
+                      <Box p="6">
+                        <Box display="flex" alignItems="baseline">
+                          <Badge borderRadius="full" px="2" colorScheme="teal">
+                            {object} Plan
+                          </Badge>
                         </Box>
+
+                        <Box
+                          mt="1"
+                          fontWeight="semibold"
+                          as="h4"
+                          lineHeight="tight"
+                          noOfLines={1}
+                        >
+                          {emailCount}
+                        </Box>
+                        <Box
+                          mt="1"
+                          fontWeight="semibold"
+                          as="h4"
+                          lineHeight="tight"
+                          noOfLines={1}
+                        >
+                          {current_term_start}
+                        </Box>
+                        <Box>
+                          {current_term_end}
+                          <Box as="span" color="gray.600" fontSize="sm">
+                            / month
+                          </Box>
+                        </Box>
+                        {/* <Box lineHeight="1rem">Plan Created: {servicePlan}</Box> */}
                       </Box>
-                      {/* <Box lineHeight="1rem">Plan Created: {servicePlan}</Box> */}
                     </Box>
-                  </Box>
+                  </Link>
                 )
               )}
             </SimpleGrid>

@@ -11,8 +11,10 @@ import {
   CircularProgress,
   CircularProgressLabel,
 } from "@chakra-ui/react";
+import axios from "axios";
 import { MdCheckCircle } from "react-icons/md";
-export default function Details() {
+export default function Details({ softwareData }) {
+  console.log(softwareData);
   return (
     <div>
       <Box bgColor="gray.200" marginLeft="20.5%">
@@ -87,4 +89,18 @@ export default function Details() {
       </Box>
     </div>
   );
+}
+
+const API = process.env.NEXT_PUBLIC_API_LINK;
+
+export async function getServerSideProps(context) {
+  const { id } = context.query;
+  let data = await axios.get(
+    `${API}/chargebee/software/getSingleSoftware/${id}`
+  );
+  return {
+    props: {
+      softwareData: data.data,
+    }, // will be passed to the page component as props
+  };
 }
