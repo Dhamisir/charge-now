@@ -7,7 +7,7 @@ import axios from 'axios'
 import { useRouter } from "next/Router";
 import { Spinner } from '@chakra-ui/react'
 import { useEffect, useState } from "react";
-import { AddEmail } from '../../../Redux/Login/login.actions'
+import { AddEmail, HandleTokenLogin } from '../../../Redux/Login/login.actions'
 
 let API = process.env.NEXT_PUBLIC_API_LINK
 
@@ -17,12 +17,18 @@ export default function Home({ userData }) {
     const toast = useToast()
     const { user, isAuth } = useSelector(state => state.login)
     const nav = useRouter();
+    const dispatch = useDispatch()
     // console.log("env", process.env.NEXT_PUBLIC_API_LINK)
-    useEffect(() => {
-        if (!isAuth) {
+    useEffect(()=>{
+        let token = localStorage.getItem('token')
+        if(!isAuth && token==null){
             nav.push('/login')
+            return 
+        }       
+        if(token!=null){
+            dispatch(HandleTokenLogin())
             return
-        }
+        } 
     }, [])
 
 

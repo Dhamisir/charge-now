@@ -45,8 +45,7 @@ export const loginReducer = (state = initState, { type, payload }) => {
     }
     case LOGOUT: {
         return {
-          ...state,
-          isAuth:false
+          ...initState
         };
       }
     case AddServiceEmail:{

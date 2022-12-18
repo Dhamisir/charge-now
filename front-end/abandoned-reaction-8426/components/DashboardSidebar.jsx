@@ -1,20 +1,16 @@
 import { Stack, Text, Button, Box, Flex, Spacer } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
-import { useSelector } from "react-redux";
-import { BiSupport } from "react-icons/bi";
+import { useSelector, useDispatch } from "react-redux";
+import { BiLogOut } from "react-icons/bi";
 import {useRouter} from 'next/Router'
-import { useEffect } from 'react';
+import { HandleLogout } from "../Redux/Login/login.actions";
 
 export default function DashboardSidebar() {
     const {user, isAuth} = useSelector(state=>state.login)
     const nav = useRouter()
+    const dispatch = useDispatch()
     
-    useEffect(()=>{
-        if(!isAuth){
-            nav.push('/login')
-            return 
-        }        
-    }, [])
+
     return (
         <>
         <Stack 
@@ -77,7 +73,6 @@ export default function DashboardSidebar() {
         </Stack>
         <Spacer></Spacer>
         <Stack>
-          <Button leftIcon={<BiSupport />}>Need Help?</Button>
           <Flex pl="20px">
             <Box
               backgroundColor="purple"
@@ -95,6 +90,11 @@ export default function DashboardSidebar() {
             </Text>
             <Spacer></Spacer>
           </Flex>
+        <Button leftIcon={<BiLogOut />}
+        onClick={()=>{
+            dispatch(HandleLogout())
+            nav.push('/login')
+          }}>Log Out</Button>
         </Stack>
         </Stack>
     </>
