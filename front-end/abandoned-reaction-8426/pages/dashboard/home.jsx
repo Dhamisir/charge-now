@@ -1,13 +1,12 @@
 import DashboardSidebar from "../../components/DashboardSidebar";
-import { Stack, Input, Textarea, Text, Flex, Spacer, Heading, Button, Box } from "@chakra-ui/react";
+import { Stack, Input, Textarea, Text, Flex, Spacer, Heading, Button, Box, Spinner, useToast } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Head from 'next/head'
 import axios from 'axios'
 import { useSelector } from "react-redux";
 import { useRouter } from "next/Router";
-import { Spinner } from '@chakra-ui/react'
-import { useToast } from '@chakra-ui/react';
 import io from 'socket.io-client'
+import {CheckIcon} from '@chakra-ui/icons'
 
 const initState = {
     email:"",
@@ -83,7 +82,7 @@ export default function Home() {
         if(!isAuth){
             nav.push('/login')
             return 
-        }        
+        }
     }, [])
 
     if(isAuth){
@@ -145,7 +144,7 @@ export default function Home() {
                 alignSelf={'center'}       
                 w='70%'
                 >
-                    <Spinner hidden={emailSent/user.serviceEmail.length == 1 ? true:false} mr='10px' />
+                    {emailSent/user.serviceEmail.length == 1 ? <CheckIcon mr='10px' w='25px' h='25px'/>:<Spinner mr='10px'/>}
                     <Text
                     fontSize={'20px'}
                     >
