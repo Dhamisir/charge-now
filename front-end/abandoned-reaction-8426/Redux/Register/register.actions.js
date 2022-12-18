@@ -4,6 +4,7 @@ import {
   REGISTER_SUCCESS,
   REGISTER_ERROR,
 } from "./register.types";
+let API = process.env.NEXT_PUBLIC_API_LINK;
 export const registerUser = (creds) => async (dispatch) => {
   dispatch({ type: REGISTER_REQUEST });
   // const API = process.env.NEXT_PUBLIC_API_LINK;
@@ -11,7 +12,7 @@ export const registerUser = (creds) => async (dispatch) => {
   // console.log(API)
   try {
     const res = await axios.post(
-      "https://chargenow-backend.onrender.com/chargebee/user/register",
+      `${API}/chargebee/user/register`,
       creds
     );
     const data = await res.data;

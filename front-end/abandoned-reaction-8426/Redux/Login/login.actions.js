@@ -8,12 +8,13 @@ import {
   DelServiceEmail,
   UpdateUser
 } from "./login.types";
-
+let API = process.env.NEXT_PUBLIC_API_LINK;
+console.log(API)
 export const HandleLogin = (creds) => async (dispatch) => {
   dispatch({ type: LOGIN_REQUEST });
   try {
     const res = await axios.post(
-      "https://chargenow-backend.onrender.com/chargebee/user/login",
+      `${API}/chargebee/user/login`,
       creds
     );
     const data = await res.data;
