@@ -5,6 +5,10 @@ const softwareSchema= mongoose.Schema({
         type:Number,
         require:true
     },
+    serviceAmount:{
+        type:String,
+        require:true
+    },
     billing_period_unit:{
         type:String,
         enum:["month","year"],
