@@ -49,7 +49,7 @@ export const UserUpdater = (user)=>{
 export const HandleTokenLogin = () => async (dispatch) => {
   let token = localStorage.getItem('token')
   try {
-    let res = await axios.get(`http://localhost:8080/chargebee/user/verifytoken/${token}`)
+    let res = await axios.get(`${API}/chargebee/user/verifytoken/${token}`)
     let data = await res.data
 
     if(!data.error){

@@ -2,11 +2,16 @@ import React from "react";
 import style from "../../../styles/payment.module.css";
 import { Button } from "@chakra-ui/react";
 import { useRouter } from "next/Router";
-
+import Head from 'next/head'
 const CheckOut = () => {
   const nav = useRouter()
   return (
     <>
+      <Head>
+        <title>
+          Charge Now / Paytm
+        </title>
+      </Head>
       <div className={style.CheckOutDiv}>
         <div>
           {" "}
@@ -36,7 +41,7 @@ const CheckOut = () => {
             shortly.
           </p>
         </div>
-        <Button colorScheme="orange" onClick={()=>{
+        <Button colorScheme="orange" onClick={() => {
           nav.push("/dashboard/home")
         }}>Back to Home</Button>
       </div>

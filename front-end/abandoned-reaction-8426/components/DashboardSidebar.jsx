@@ -2,18 +2,30 @@ import { Stack, Text, Button, Box, Flex, Spacer } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { useSelector, useDispatch } from "react-redux";
 import { BiLogOut } from "react-icons/bi";
-import {useRouter} from 'next/Router'
-import { HandleLogout } from "../Redux/Login/login.actions";
+import { useRouter } from 'next/Router'
+import { HandleLogout, HandleTokenLogin } from "../Redux/Login/login.actions";
+import { useEffect } from "react";
 
 export default function DashboardSidebar() {
-    const {user, isAuth} = useSelector(state=>state.login)
-    const nav = useRouter()
-    const dispatch = useDispatch()
-    
+  const { user, isAuth } = useSelector(state => state.login)
+  const nav = useRouter()
+  const dispatch = useDispatch()
 
-    return (
-        <>
-        <Stack 
+  useEffect(() => {
+    let token = localStorage.getItem('token')
+    if (!isAuth && token == null) {
+      nav.push('/login')
+      return
+    }
+    if (token != null) {
+      dispatch(HandleTokenLogin())
+      return
+    }
+  }, []);
+
+  return (
+    <>
+      <Stack
         borderRadius={'10px'}
         boxShadow='rgba(0, 0, 0, 0.35) 0px 5px 15px;'
         height='100%'
@@ -24,13 +36,13 @@ export default function DashboardSidebar() {
         p='0.5%'
         pt='1%'
         pb='2%'
-        >
-          <Stack
+      >
+        <Stack
           backgroundColor='#2C0069'
           borderRadius='10px'
           color='white'
           p='3%'
-          >
+        >
           <Text fontSize="18px">{user.companyName}</Text>
           <Text fontSize="14px">{user.companyName}@chargenow.com</Text>
           <Button colorScheme="whatsapp" rightIcon={<ArrowForwardIcon />}>
@@ -61,7 +73,7 @@ export default function DashboardSidebar() {
           >
             Subscriptions
           </Button>
-          <Button hidden={user.role == "admin" ? true : false} onClick={()=>{
+          <Button hidden={user.role == "admin" ? true : false} onClick={() => {
             nav.push("/dashboard/invoice");
           }}>Invoice</Button>
           <Button onClick={() => {
@@ -92,13 +104,13 @@ export default function DashboardSidebar() {
             </Text>
             <Spacer></Spacer>
           </Flex>
-        <Button leftIcon={<BiLogOut />}
-        onClick={()=>{
-            dispatch(HandleLogout())
-            nav.push('/login')
-          }}>Log Out</Button>
+          <Button leftIcon={<BiLogOut />}
+            onClick={() => {
+              dispatch(HandleLogout())
+              nav.push('/login')
+            }}>Log Out</Button>
         </Stack>
-        </Stack>
+      </Stack>
     </>
   );
 }

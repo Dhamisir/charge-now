@@ -29,7 +29,7 @@ export default function Home() {
         if(user.serviceEmail.includes(email)){
             return changeError('Email already present')
         }
-        const res = await axios.post(`${API}mailer/addServiceEmail`, {
+        const res = await axios.post(`${API}/mailer/addServiceEmail`, {
             "email":user.email,
             "adderEmail":email
         })

@@ -11,25 +11,36 @@ import { AddEmail, HandleTokenLogin } from '../../../Redux/Login/login.actions'
 
 let API = process.env.NEXT_PUBLIC_API_LINK
 
-export default function Home({ userData }) {
+export default function Home() {
     // console.log("userData", userData)
+    const [userData, setUserData] = useState([])
     const [page, setPage] = useState(1);
     const toast = useToast()
     const { user, isAuth } = useSelector(state => state.login)
     const nav = useRouter();
     const dispatch = useDispatch()
     // console.log("env", process.env.NEXT_PUBLIC_API_LINK)
-    useEffect(()=>{
+    useEffect(() => {
+        getData()
         let token = localStorage.getItem('token')
-        if(!isAuth && token==null){
+        if (!isAuth && token == null) {
             nav.push('/login')
-            return 
-        }       
-        if(token!=null){
+            return
+        }
+        if (token != null) {
             dispatch(HandleTokenLogin())
             return
-        } 
+        }
     }, [])
+
+    const getData = async () => {
+        let user = await axios.get(`${API}/chargebee/user/Alluserdata`).then((res) => {
+            console.log(res.data)
+            setUserData(res.data.Users)
+        }).catch((err) => {
+            console.log(err.message)
+        })
+    }
 
 
     if (isAuth) {
@@ -80,7 +91,7 @@ export default function Home({ userData }) {
                                     </Thead>
                                     <Tbody>
                                         {
-                                            userData.Users.map((ele) => (
+                                            userData.map((ele) => (
                                                 <Tr>
                                                     <Td>{ele.name}</Td>
                                                     <Td>{ele.email}</Td>
@@ -120,12 +131,12 @@ export default function Home({ userData }) {
     }
 }
 
-export async function getServerSideProps(context) {
-    let user = await axios.get(`${API}/chargebee/user/Alluserdata`)
-    console.log(user.data)
-    return {
-        props: {
-            userData: user.data
-        }, // will be passed to the page component as props
-    }
-}
+// export async function getServerSideProps(context) {
+//     let user = await axios.get(`https://charge-now-back-end.onrender.com/chargebee/user/Alluserdata`)
+//     console.log(user.data)
+//     return {
+//         props: {
+//             userData: user.data
+//         }, // will be passed to the page component as props
+//     }
+// }

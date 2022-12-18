@@ -6,23 +6,26 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { useRouter } from "next/Router";
 import { UserUpdater } from "../../../Redux/Login/login.actions";
-
+import Head from 'next/head'
+const API = process.env.NEXT_PUBLIC_API_LINK;
 const Payment = () => {
   const [isLoading, setIsloading] = useState(false);
   const ref = useRef(null);
   const { user } = useSelector((store) => store.login);
   const nav = useRouter();
   const { singleData } = useSelector((store) => store.service);
-  const API = process.env.NEXT_PUBLIC_API_LINK;
   const dispatch = useDispatch();
 
   const checkout = async () => {
+    console.log(user.email, singleData._id)
     let res = await axios.post(`${API}/chargebee/service/addservice`, {
       email: user.email,
       softwareId: singleData._id,
     });
+
     let data = await res.data;
     localStorage.setItem("token", data.token);
+    console.log(data)
     setIsloading(true);
     setTimeout(() => {
       setIsloading(false);
@@ -30,10 +33,16 @@ const Payment = () => {
         nav.push("/dashboard/Services/payment");
       }, 1500);
     }, 2500);
+
   };
 
   return (
     <>
+      <Head>
+        <title>
+          Charge Now / Checkout
+        </title>
+      </Head>
       <p
         style={{
           margin: "auto",

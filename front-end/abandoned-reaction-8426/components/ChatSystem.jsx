@@ -2,7 +2,6 @@ import {IoMdSend} from 'react-icons/io'
 import {AiOutlinePaperClip} from 'react-icons/ai'
 import {SlSettings} from 'react-icons/sl'
 import style from '../styles/Login.module.css'
-import Clock from 'react-live-clock'
 import React from 'react'
 import Link from 'next/link';
 import {
@@ -58,7 +57,6 @@ export default function ChatSystem(){
      
     
 <Stack width={'280px'} >
-{/* <Clock format={'h:mm:ssa'} style={{fontSize: '1.5em'}} ticking={true} /> */}
   <Text  fontSize={'md'}>
     Hey there! Would you like to Use our mailing service?
 </Text>
