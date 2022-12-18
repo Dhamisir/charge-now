@@ -151,8 +151,8 @@ export default function signup() {
         >
           <HStack  justifyContent={'space-between'} width={'90%'}>
             <Image
-              src="https://www.chargebee.com/static/resources/brand/chargebee-logo-black.svg"
-              h={"40px"}
+              src="https://user-images.githubusercontent.com/101573792/208240778-3c6c67f7-d48e-47e8-bafb-16d8795d71c3.png"
+              h={"70px"}
             ></Image>{" "}
             <Flex >
               {" "}
