@@ -62,8 +62,10 @@ const handleotp=(e)=>{
       });
     } 
   try {
-    const res= await axios.post('http://localhost:8080/mailer/verifyOtp',otpdetails)
+    console.log(otpdetails)
+    const res= await axios.post('https://chargenow-backend.onrender.com/mailer/verifyOtp',otpdetails)
     const data=await res.data
+    console.log(data)
     setisAuth(true)
   } catch (error) {
     console.log(error.message)
@@ -82,7 +84,7 @@ const handleotp=(e)=>{
       });
     } 
     try {
-      const res=await axios.post('http://localhost:8080/mailer/sendotp',emaildetails)
+      const res=await axios.post('https://chargenow-backend.onrender.com/mailer/sendotp',emaildetails)
       const data=await res.data
       setshowinput(false)
     } catch (error) {
@@ -175,6 +177,17 @@ const handleotp=(e)=>{
            {/* for the otp verification purpose  */}
            
             <Stack width={"90%"} spacing={1} marginTop={"60px"} hidden={showinput}>
+            <FormLabel fontWeight={"13px"}>
+             Enter your Registered Gmail
+              </FormLabel>
+              <Input
+                type="text"
+                placeholder={"Enter Your Gmail"}
+                onChange={handleotp}
+                name="email"
+              />
+           
+           
               <FormLabel fontWeight={"13px"}>
              OTP
               </FormLabel>
