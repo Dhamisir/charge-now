@@ -5,7 +5,8 @@ import {
   LOGIN_ERROR,
   LOGOUT,
   AddServiceEmail,
-  DelServiceEmail
+  DelServiceEmail,
+  UpdateUser
 } from "./login.types";
 
 export const HandleLogin = (creds) => async (dispatch) => {
@@ -35,6 +36,14 @@ export const AddEmail = (newEmail) => {
     payload: newEmail,
   };
 };
+
+export const UserUpdater = (user)=>{
+  console.log(user)
+  return {
+    type:UpdateUser,
+    payload:user
+  }
+}
 
 export const HandleTokenLogin = () => async (dispatch) => {
   let token = localStorage.getItem('token')

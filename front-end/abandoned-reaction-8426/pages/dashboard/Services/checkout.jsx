@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { Button, Image, Input } from "@chakra-ui/react";
 import style from "../../../styles/checkout.module.css";
 import { InfoIcon } from "@chakra-ui/icons";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { useRouter } from "next/Router";
+import {UserUpdater} from '../../../Redux/Login/login.actions'
 
 const Payment = () => {
   const [isLoading, setIsloading] = useState(false);
@@ -12,14 +13,17 @@ const Payment = () => {
   const nav = useRouter();
   const { singleData } = useSelector((store) => store.service);
   const API = process.env.NEXT_PUBLIC_API_LINK;
-
+  const dispatch = useDispatch()
+  
   const checkout = async () => {
     let res = await axios.post(`${API}/chargebee/service/addservice`, {
       email: user.email,
       softwareId: singleData._id,
     });
     let data = await res.data;
-    console.log(data);
+
+    localStorage.setItem('token', data.token)
+    
     setIsloading(true);
     setTimeout(() => {
       setIsloading(false);
