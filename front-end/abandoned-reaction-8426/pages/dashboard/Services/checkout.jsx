@@ -1,29 +1,28 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Button, Image, Input } from "@chakra-ui/react";
 import style from "../../../styles/checkout.module.css";
 import { InfoIcon } from "@chakra-ui/icons";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { useRouter } from "next/Router";
-import {UserUpdater} from '../../../Redux/Login/login.actions'
+import { UserUpdater } from "../../../Redux/Login/login.actions";
 
 const Payment = () => {
   const [isLoading, setIsloading] = useState(false);
+  const ref = useRef(null);
   const { user } = useSelector((store) => store.login);
   const nav = useRouter();
   const { singleData } = useSelector((store) => store.service);
   const API = process.env.NEXT_PUBLIC_API_LINK;
-  const dispatch = useDispatch()
-  
+  const dispatch = useDispatch();
+
   const checkout = async () => {
     let res = await axios.post(`${API}/chargebee/service/addservice`, {
       email: user.email,
       softwareId: singleData._id,
     });
     let data = await res.data;
-
-    localStorage.setItem('token', data.token)
-    
+    localStorage.setItem("token", data.token);
     setIsloading(true);
     setTimeout(() => {
       setIsloading(false);
@@ -33,7 +32,6 @@ const Payment = () => {
     }, 2500);
   };
 
-  // console.log("ok", singleData, user);
   return (
     <>
       <p
@@ -74,8 +72,7 @@ const Payment = () => {
             </div>
             <div>
               <p style={{ fontWeight: "500", fontSize: "14px" }}>
-                Marketing Hub Starter - Marketing Contacts (1,000 Marketing
-                Contacts Included)
+                {singleData.object}
               </p>
               <p
                 style={{
@@ -87,21 +84,6 @@ const Payment = () => {
               >
                 Starter product discount (64%)
               </p>
-            </div>
-            <div style={{ textAlign: "right" }}>
-              <p
-                style={{
-                  color: "rgb(81,111,144)",
-                  fontSize: "12px",
-                  textDecoration: "line-through",
-                }}
-              >
-                $600.00
-              </p>
-              <p style={{ color: "rgb(0,163,141)", fontSize: "12px" }}>
-                −$384.00
-              </p>
-              <p>$216.00</p>
             </div>
           </div>
           <div
@@ -130,7 +112,7 @@ const Payment = () => {
               </p>
             </div>
             <div style={{ textAlign: "right!important" }}>
-              <p style={{ marginBottom: "5px" }}>$216.00</p>
+              <p style={{ marginBottom: "5px" }}>${singleData.serviceAmount}</p>
               <p> $0.00</p>
             </div>
           </div>
@@ -151,7 +133,7 @@ const Payment = () => {
             }}
           >
             <p>Order total (including tax)</p>
-            <p>$216.00</p>
+            <p>${singleData.serviceAmount}</p>
           </div>
           <div
             style={{
@@ -175,7 +157,7 @@ const Payment = () => {
               marginBottom: "10px",
             }}
           >
-            <p className={style.detailDivText}>Company details</p>
+            <p className={style.detailDivText}>Service details</p>
             <p style={{ color: "rgb(0,163,141" }}>Change</p>
           </div>
           <p

@@ -111,7 +111,7 @@ export default function Details({ id }) {
         >
           <Container maxW="xl" marginLeft="2%">
             <Text fontSize="1.1rem" fontWeight="bold">
-              ChargeBee guides
+              ChargeNow guides
             </Text>
             <p className="we">We love to help.</p>
             <p className="we2">Seriously.</p>
