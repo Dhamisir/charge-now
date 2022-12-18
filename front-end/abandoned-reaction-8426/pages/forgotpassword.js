@@ -21,7 +21,7 @@ import {
 
 import Link from "next/link";
 import axios from "axios";
-
+let API = process.env.NEXT_PUBLIC_API_LINK;
 export default function forgotpassword() {
   const toast = useToast();
   const [emaildetails, setemaildetails] = React.useState({})
@@ -64,7 +64,7 @@ const handleotp=(e)=>{
     } 
   try {
     console.log(otpdetails)
-    const res= await axios.post('https://chargenow-backend.onrender.com/mailer/verifyOtp',otpdetails)
+    const res= await axios.post(`${API}/mailer/verifyOtp`,otpdetails)
     const data=await res.data
     console.log(data)
     setisAuth(true)
@@ -85,7 +85,7 @@ const handleotp=(e)=>{
       });
     } 
     try {
-      const res=await axios.post('https://chargenow-backend.onrender.com/mailer/sendotp',emaildetails)
+      const res=await axios.post(`${API}/mailer/sendotp`,emaildetails)
       const data=await res.data
       setshowinput(false)
       
@@ -254,3 +254,4 @@ const handleotp=(e)=>{
     </Stack>
   );
 }
+
