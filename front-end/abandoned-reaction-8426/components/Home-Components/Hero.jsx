@@ -10,6 +10,7 @@ import {
     useColorModeValue,
     IconButton,
 } from '@chakra-ui/react';
+import { motion } from 'framer-motion';
 import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi';
 import { useRef } from 'react';
 import { useState } from 'react';
