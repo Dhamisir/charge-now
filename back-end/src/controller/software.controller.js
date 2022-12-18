@@ -3,10 +3,10 @@ const Software= require("../model/software.model");
 
 exports.createSoftware= async(req,res)=>{
     const { billing_period,billing_period_unit, emailCount,
-        currency_code, object}= req.body;
+        currency_code, object,serviceAmount}= req.body;
         const date= Date.now()
    try{ const newSoftware= new Software( { billing_period,billing_period_unit, emailCount,
-        currency_code, object, created_at:date});
+        currency_code, object,serviceAmount, created_at:date});
     await newSoftware.save();
     return res.status(201).send({
         message:"software created sucessFull",

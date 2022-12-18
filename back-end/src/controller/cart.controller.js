@@ -9,7 +9,7 @@ exports.addService=async(req,res)=>{
       if(user){
          const newuser=await User.findByIdAndUpdate(
             user._id,
-            {$set: { remainingEmail: remainingEmail+software.emailCount,serviceName:software.name}},
+            {$set: { remainingEmail: user.remainingEmail+software.emailCount,serviceName:software.object}},
             {new:true}
            );
            console.log(newuser)

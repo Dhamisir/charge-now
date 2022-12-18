@@ -10,22 +10,36 @@ const mailer = require('./routes/mailer.route')
 const cart =require('./routes/cart.router')
 const payment= require("./routes/payment.router")
 const PORT= process.env.PORT
-
+const http = require('http') 
+const {Server} = require('socket.io')
 const app= express();
+const server = http.createServer(app)
+
+const io = new Server(server, {
+    cors:{
+        origin:'http://localhost:3000',
+        methods:["GET", "POST"],
+        transports: ['websocket', 'polling'],
+        credentials: true
+    },
+    allowEIO3: true
+})
+
+io.on('connection', (socket)=>{})
+
 app.use(express.json());
 app.use(cors());
-
+app.use((req,res,next)=>{
+    req.io = io
+    return next()
+})
 app.use("/chargebee/user",user)
 app.use("/chargebee/software",software)
 app.use('/mailer', mailer)
 app.use("/chargebee/service",cart)
 app.use("/chargebee/payment",payment)
 
-
-
-
- 
-app.listen(PORT,async()=>{
+server.listen(PORT,async()=>{
     await connect();
     console.log(`listening at http://localhost:${PORT}`)
 })

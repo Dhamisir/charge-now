@@ -7,6 +7,7 @@ import {
   AddServiceEmail,
   DelServiceEmail
 } from "./login.types";
+
 export const HandleLogin = (creds) => async (dispatch) => {
   dispatch({ type: LOGIN_REQUEST });
   try {
@@ -15,6 +16,7 @@ export const HandleLogin = (creds) => async (dispatch) => {
       creds
     );
     const data = await res.data;
+    localStorage.setItem('token', data.token)
     return dispatch({
       type: LOGIN_SUCCESS,
       payload: data.user,
@@ -34,12 +36,40 @@ export const AddEmail = (newEmail) => {
   };
 };
 
+export const HandleTokenLogin = () => async (dispatch) => {
+  let token = localStorage.getItem('token')
+  try {
+    let res = await axios.get(`http://localhost:8080/chargebee/user/verifytoken/${token}`)
+    let data = await res.data
+
+    if(!data.error){
+      return dispatch({
+        type: LOGIN_SUCCESS,
+        payload: data.user,
+      })
+    } else {
+      return dispatch({
+        type: LOGIN_ERROR,
+        payload: data.msg,
+      })
+    }
+  } catch (error) {
+    return dispatch({
+      type: LOGIN_ERROR,
+      payload: error.message,
+    });
+  }
+}
+
 export const DelEmail = (newEmail) => {
   return {
     type: DelServiceEmail,
     payload: newEmail,
   };
 };
-export const HandleLogout = () => ({
-  type: LOGOUT,
-});
+export const HandleLogout = () => {
+  localStorage.removeItem('token')
+  return {
+    type:LOGOUT
+  }
+};

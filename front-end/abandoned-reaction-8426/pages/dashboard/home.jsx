@@ -1,12 +1,13 @@
 import DashboardSidebar from "../../components/DashboardSidebar";
-import { Stack, Input, Textarea, Text, Flex, Spacer, Heading, Button, Box } from "@chakra-ui/react";
+import { Stack, Input, Textarea, Text, Flex, Spacer, Heading, Button, Box, Spinner, useToast } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Head from 'next/head'
 import axios from 'axios'
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/Router";
-import { Spinner } from '@chakra-ui/react'
-import { useToast } from '@chakra-ui/react';
+import io from 'socket.io-client'
+import {CheckIcon} from '@chakra-ui/icons'
+import { HandleTokenLogin } from "../../Redux/Login/login.actions";
 
 const initState = {
     email:"",
@@ -15,15 +16,17 @@ const initState = {
 }
 
 export default function Home() {
+    let socket = io.connect('http://localhost:8080/')
     const toast = useToast()
     const {user, isAuth} = useSelector(state=>state.login)
     const nav = useRouter()
     const [form, changeForm] = useState(initState)
-    const [error, changeError] = useState("")
-    
-    
+    const [emailSent, changeEmailSent] = useState(0)
+    const [statHidden, changeStatHidden] = useState(true)
+    const dispatch = useDispatch()
 
     const sendMails = async () => {
+        changeEmailSent(0)
         if(form.subject=="" || form.body==""){
             toast({
                 position: 'bottom-left',
@@ -49,14 +52,10 @@ export default function Home() {
         }
 
         let res = await axios.post('http://localhost:8080/mailer/sendmail', form)
+        changeStatHidden(false)
         let data = await res.data
 
-
         if(data.error==false){
-            changeError('Mails sent successfully!')
-            setTimeout(()=>{
-                changeError('')
-            }, 7000)
             changeForm({
                 ...initState
             })
@@ -66,6 +65,7 @@ export default function Home() {
     }
 
     const handleChange = (e) => {
+        changeStatHidden(true)
         let name = e.target.name
         changeForm({
             ...form,
@@ -75,15 +75,26 @@ export default function Home() {
     }
 
     useEffect(()=>{
-        if(!isAuth){
+        socket.on('new', (num)=>{
+            changeEmailSent(num)
+        })
+    }, [socket])
+    
+    useEffect(()=>{
+        let token = localStorage.getItem('token')
+        if(!isAuth && token==null){
             nav.push('/login')
             return 
-        }        
+        }
+        if(token!=null){
+            dispatch(HandleTokenLogin())
+            return
+        }
     }, [])
 
     if(isAuth){
         return (
-            <>
+            <Box>
             <Head>
                 <title>
                     Dashboard | Home
@@ -91,12 +102,13 @@ export default function Home() {
             </Head>
         <Flex
             backgroundColor={'#EAEAF4'}
+            overflow={'hidden'}
         >
             <DashboardSidebar />
             <Spacer></Spacer>
             <Stack
+            h='700px'
             w='80%'
-            h='621px'
             spacing='30px'
             >
                 <Stack
@@ -134,9 +146,21 @@ export default function Home() {
                     onClick={sendMails}
                     >Send emails</Button>
                 </Stack>
+                <Flex 
+                hidden={statHidden}
+                alignSelf={'center'}       
+                w='70%'
+                >
+                    {emailSent/user.serviceEmail.length == 1 ? <CheckIcon mr='10px' w='25px' h='25px'/>:<Spinner mr='10px'/>}
+                    <Text
+                    fontSize={'20px'}
+                    >
+                        {emailSent}/{user.serviceEmail.length} mails sent successfully!
+                    </Text>
+                </Flex>
             </Stack>
         </Flex>
-            </>
+            </Box>
         )
     } else {
         return (
