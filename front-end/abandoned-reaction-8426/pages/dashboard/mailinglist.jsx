@@ -9,6 +9,7 @@ import { Spinner } from '@chakra-ui/react'
 import { useEffect, useState } from "react";
 import {AddEmail, HandleTokenLogin } from '../../Redux/Login/login.actions'
 
+let API = process.env.NEXT_PUBLIC_API_LINK;
 export default function Home() {
     const toast = useToast()
     const {user, isAuth} = useSelector(state=>state.login)
@@ -28,7 +29,7 @@ export default function Home() {
         if(user.serviceEmail.includes(email)){
             return changeError('Email already present')
         }
-        const res = await axios.post("http://localhost:8080/mailer/addServiceEmail", {
+        const res = await axios.post(`${API}mailer/addServiceEmail`, {
             "email":user.email,
             "adderEmail":email
         })
