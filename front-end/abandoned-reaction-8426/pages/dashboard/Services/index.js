@@ -8,6 +8,7 @@ import {
   Flex,
   Stack,
   Heading,
+  Image,
 } from "@chakra-ui/react";
 import style from "../../../styles/services.module.css";
 import Link from "next/link";
@@ -15,6 +16,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { serviceAction } from "../../../Redux/Services/services.actions";
 import { useEffect } from "react";
 import DashboardSidebar from "../../../components/DashboardSidebar";
+import { HandleTokenLogin } from "../../../Redux/Login/login.actions";
+import axios from "axios";
 const pE = [
   {
     id: "1",
@@ -28,18 +31,44 @@ const pE = [
   },
 ];
 
+let API = process.env.NEXT_PUBLIC_API_LINK
+
 export default function Services() {
   const dispatch = useDispatch();
   const { isLoading, isError, serviceData } = useSelector(
     (store) => store.service
   );
+
+  const { user, isAuth } = useSelector((store) => store.login);
+  // console.log("🚀 ~ file: index.js:38 ~ Services ~ user", user)
+
   const getService = () => {
     dispatch(serviceAction());
   };
 
   useEffect(() => {
     getService();
+    let token = localStorage.getItem('token')
+    if (!isAuth && token == null) {
+      nav.push('/login')
+      return
+    }
+    if (token != null) {
+      dispatch(HandleTokenLogin())
+      return
+    }
   }, []);
+
+  const deleteSoftware = async (id) => {
+    // console.log(id)
+    // http://localhost:8080/chargebee/software/deleteSoftware/639b0805128cfdfc5fcba339
+    await axios.delete(`${API}/chargebee/software/deleteSoftware/${id}`).then(() => {
+      dispatch(serviceAction());
+      alert("Delete Software Successfull")
+    }).catch((err) => {
+      alert("Something Wrong")
+    })
+  }
 
   // console.log(serviceData);
   return (
@@ -111,58 +140,62 @@ export default function Services() {
               {serviceData.map(
                 ({
                   _id,
-                  current_term_end,
                   current_term_start,
                   emailCount,
                   object,
+                  serviceAmount
                 }) => (
-                  <Link href={`/dashboard/Services/${_id}`}>
-                    <Box
-                      key={_id}
-                      maxW="sm"
-                      height="200px"
-                      borderWidth="1px"
-                      borderRadius="lg"
-                      overflow="hidden"
-                      bgColor="blue.200"
-                      border="2px Solid black"
-                      m="auto"
-                    >
-                      <Box p="6">
-                        <Box display="flex" alignItems="baseline">
-                          <Badge borderRadius="full" px="2" colorScheme="teal">
-                            {object} Plan
-                          </Badge>
-                        </Box>
-
-                        <Box
-                          mt="1"
-                          fontWeight="semibold"
-                          as="h4"
-                          lineHeight="tight"
-                          noOfLines={1}
-                        >
-                          {emailCount}
-                        </Box>
-                        <Box
-                          mt="1"
-                          fontWeight="semibold"
-                          as="h4"
-                          lineHeight="tight"
-                          noOfLines={1}
-                        >
-                          {current_term_start}
-                        </Box>
-                        <Box>
-                          {current_term_end}
-                          <Box as="span" color="gray.600" fontSize="sm">
-                            / month
-                          </Box>
-                        </Box>
-                        {/* <Box lineHeight="1rem">Plan Created: {servicePlan}</Box> */}
+                  <Box
+                    key={_id}
+                    maxW="sm"
+                    borderWidth="1px"
+                    borderRadius="lg"
+                    overflow="hidden"
+                    shadow="dark-lg"
+                    border="2px Solid black"
+                    textAlign="center"
+                    p="10px"
+                  >
+                    <Box>
+                      <Box>
+                        <Badge m="5px" borderRadius="full" p="5px 20px" colorScheme="teal">
+                          {object} Plan
+                        </Badge>
                       </Box>
+                      <Image w="100%" src="https://img1.wsimg.com/cdn/Image/All/FOS-Intl/1/en-US/63f02b10-1cc4-424b-ac60-508f89ed9357/feat-email-cat-professional-email-row.jpg" />
+                      <Box
+                        mt="1"
+                        fontWeight="semibold"
+                        as="h4"
+                        lineHeight="tight"
+                        noOfLines={1}
+                      >
+                        Email Count: {emailCount}
+                      </Box>
+                      <Box
+                        mt="1"
+                        fontWeight="semibold"
+                        as="h4"
+                        lineHeight="tight"
+                        noOfLines={1}
+                      >
+                        Billing : {current_term_start}
+                      </Box>
+                      <Box mt="1"
+                        fontWeight="semibold"
+                        as="h4"
+                        lineHeight="tight"
+                        noOfLines={1}>
+                        <Box as="span" fontSize="sm">
+                          ₹{serviceAmount}/ month
+                        </Box>
+                      </Box>
+                      {
+                        (user.role == "admin") ? <Button onClick={() => { deleteSoftware(_id) }} m="5px" colorScheme="purple">Delete</Button> : <Link href={`/dashboard/Services/${_id}`}><Button m="5px" colorScheme="purple">Buy Now</Button></Link>
+                      }
+                      {/* <Box lineHeight="1rem">Plan Created: {servicePlan}</Box> */}
                     </Box>
-                  </Link>
+                  </Box>
                 )
               )}
             </SimpleGrid>
