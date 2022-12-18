@@ -16,6 +16,7 @@ const CompanySchema= new mongoose.Schema({
     },
     serviceName:{
         type:String,
+        default:""
     },
     serviceEmail:{
       type:[String],
