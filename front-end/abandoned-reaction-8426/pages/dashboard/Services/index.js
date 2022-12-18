@@ -120,7 +120,7 @@ export default function Services() {
                     <Box
                       key={_id}
                       maxW="sm"
-                      height="auto"
+                      height="200px"
                       borderWidth="1px"
                       borderRadius="lg"
                       overflow="hidden"
