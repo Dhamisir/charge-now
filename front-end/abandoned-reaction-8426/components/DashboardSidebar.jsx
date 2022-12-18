@@ -61,7 +61,9 @@ export default function DashboardSidebar() {
           >
             Subscriptions
           </Button>
-          <Button hidden={user.role == "admin" ? true : false}>Invoice</Button>
+          <Button hidden={user.role == "admin" ? true : false} onClick={()=>{
+            nav.push("/dashboard/invoice");
+          }}>Invoice</Button>
           <Button onClick={() => {
             nav.push("/dashboard/admin/alluser");
           }} hidden={user.role == "admin" ? false : true}>Users</Button>
