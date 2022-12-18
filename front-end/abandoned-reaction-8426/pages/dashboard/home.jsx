@@ -14,7 +14,7 @@ const initState = {
     subject:'',
     body:''
 }
-
+let API = process.env.NEXT_PUBLIC_API_LINK;
 export default function Home() {
     let socket = io.connect('http://localhost:8080/')
     const toast = useToast()
@@ -25,6 +25,7 @@ export default function Home() {
     const [statHidden, changeStatHidden] = useState(true)
     const dispatch = useDispatch()
 
+    console.log(API)
     const sendMails = async () => {
         changeEmailSent(0)
         if(form.subject=="" || form.body==""){
@@ -51,7 +52,7 @@ export default function Home() {
             return 
         }
 
-        let res = await axios.post('http://localhost:8080/mailer/sendmail', form)
+        let res = await axios.post(`${API}/mailer/sendmail`, form)
         changeStatHidden(false)
         let data = await res.data
 
