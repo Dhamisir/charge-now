@@ -2,11 +2,34 @@ import React, { useState } from "react";
 import { Button, Image, Input } from "@chakra-ui/react";
 import style from "../../../styles/checkout.module.css";
 import { InfoIcon } from "@chakra-ui/icons";
-import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import { useRouter } from "next/Router";
 
 const Payment = () => {
   const [isLoading, setIsloading] = useState(false);
-  const navigate = useNavigate();
+  const { user } = useSelector((store) => store.login);
+  const nav = useRouter();
+  const { singleData } = useSelector((store) => store.service);
+  const API = process.env.NEXT_PUBLIC_API_LINK;
+
+  const checkout = async () => {
+    let res = await axios.post(`${API}/chargebee/service/addservice`, {
+      email: user.email,
+      softwareId: singleData._id,
+    });
+    let data = await res.data;
+    console.log(data);
+    setIsloading(true);
+    setTimeout(() => {
+      setIsloading(false);
+      setTimeout(() => {
+        nav.push("/dashboard/Services/payment");
+      }, 1500);
+    }, 2500);
+  };
+
+  // console.log("ok", singleData, user);
   return (
     <>
       <p
@@ -256,13 +279,7 @@ const Payment = () => {
           <Button
             colorScheme="orange"
             onClick={() => {
-              setIsloading(true);
-              setTimeout(() => {
-                setIsloading(false);
-                setTimeout(() => {
-                  navigate("/checkout", { replace: true });
-                }, 1500);
-              }, 2500);
+              checkout();
             }}
             isLoading={isLoading}
           >
