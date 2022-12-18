@@ -7,7 +7,7 @@ import axios from 'axios'
 import { useRouter } from "next/Router";
 import { Spinner } from '@chakra-ui/react'
 import { useEffect, useState } from "react";
-import {AddEmail } from '../../Redux/Login/login.actions'
+import {AddEmail, HandleTokenLogin } from '../../Redux/Login/login.actions'
 
 export default function Home() {
     const toast = useToast()
@@ -62,10 +62,15 @@ export default function Home() {
     }
 
     useEffect(()=>{
-        if(!isAuth){
+        let token = localStorage.getItem('token')
+        if(!isAuth && token==null){
             nav.push('/login')
             return 
-        }        
+        }       
+        if(token!=null){
+            dispatch(HandleTokenLogin())
+            return
+        } 
     }, [])
 
     if(isAuth){

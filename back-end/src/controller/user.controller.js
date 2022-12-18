@@ -25,7 +25,7 @@ exports.login=async(req,res)=>{
     const user= await User.findOne({email});
     if(await argon2.verify(user.password,password)){
         const token= jwt.sign({
-            id:user._id,name:user.name,companyName:user.companyName,role:user.role
+            ...user
         },"VIKALP@99",{
             expiresIn:"7 days"
         })
@@ -66,3 +66,13 @@ exports.getSingleUserData=async(req,res)=>{
 }
 
 
+exports.verifytoken = async (req, res) => {
+    let token = req.params.token
+    try {
+        let user = jwt.decode(token, "VIKALP@99")
+        delete user._doc.password
+        res.status(200).send({error:false, user:user._doc})
+    } catch (error) {
+        res.status(200).send({error:true, msg:'Token verification failed'})   
+    }
+}

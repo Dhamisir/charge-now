@@ -7,11 +7,12 @@ import axios from 'axios'
 import { useRouter } from "next/Router";
 import { Spinner } from '@chakra-ui/react'
 import { useEffect, useState } from "react";
-import { AddEmail } from '../../../Redux/Login/login.actions'
+import { AddEmail, HandleTokenLogin } from '../../../Redux/Login/login.actions'
 
 let API = process.env.NEXT_PUBLIC_API_LINK
 
 export default function Home() {
+    const dispatch = useDispatch()
     const [form, setForm] = useState({
         billing_period: 0,
         billing_period_unit: "month",
@@ -22,11 +23,16 @@ export default function Home() {
     const { user, isAuth } = useSelector(state => state.login)
     const nav = useRouter();
 
-    useEffect(() => {
-        if (!isAuth) {
+    useEffect(()=>{
+        let token = localStorage.getItem('token')
+        if(!isAuth && token==null){
             nav.push('/login')
+            return 
+        }       
+        if(token!=null){
+            dispatch(HandleTokenLogin())
             return
-        }
+        } 
     }, [])
 
     const handleChange = (e) => {

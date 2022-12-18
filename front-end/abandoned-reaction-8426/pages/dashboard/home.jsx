@@ -3,10 +3,11 @@ import { Stack, Input, Textarea, Text, Flex, Spacer, Heading, Button, Box, Spinn
 import { useEffect, useState } from "react";
 import Head from 'next/head'
 import axios from 'axios'
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/Router";
 import io from 'socket.io-client'
 import {CheckIcon} from '@chakra-ui/icons'
+import { HandleTokenLogin } from "../../Redux/Login/login.actions";
 
 const initState = {
     email:"",
@@ -22,6 +23,7 @@ export default function Home() {
     const [form, changeForm] = useState(initState)
     const [emailSent, changeEmailSent] = useState(0)
     const [statHidden, changeStatHidden] = useState(true)
+    const dispatch = useDispatch()
 
     const sendMails = async () => {
         changeEmailSent(0)
@@ -77,11 +79,16 @@ export default function Home() {
             changeEmailSent(num)
         })
     }, [socket])
-
+    
     useEffect(()=>{
-        if(!isAuth){
+        let token = localStorage.getItem('token')
+        if(!isAuth && token==null){
             nav.push('/login')
             return 
+        }
+        if(token!=null){
+            dispatch(HandleTokenLogin())
+            return
         }
     }, [])
 
