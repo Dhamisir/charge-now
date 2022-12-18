@@ -13,6 +13,7 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import { MdCheckCircle } from "react-icons/md";
+import Link from "next/link";
 export default function Details({ softwareData }) {
   console.log(softwareData);
   return (
