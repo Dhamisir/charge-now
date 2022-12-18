@@ -18,21 +18,22 @@ export default function Home() {
         billing_period_unit: "month",
         emailCount: 0,
         currency_code: "USD",
-        object: ""
+        object: "",
+        serviceAmount: ""
     });
     const { user, isAuth } = useSelector(state => state.login)
     const nav = useRouter();
 
-    useEffect(()=>{
+    useEffect(() => {
         let token = localStorage.getItem('token')
-        if(!isAuth && token==null){
+        if (!isAuth && token == null) {
             nav.push('/login')
-            return 
-        }       
-        if(token!=null){
+            return
+        }
+        if (token != null) {
             dispatch(HandleTokenLogin())
             return
-        } 
+        }
     }, [])
 
     const handleChange = (e) => {
@@ -96,6 +97,8 @@ export default function Home() {
                                 <Input placeholder="USD/INR" onChange={handleChange} name="currency_code" type='text' />
                                 <FormLabel>Object</FormLabel>
                                 <Input onChange={handleChange} name="object" type='text' />
+                                <FormLabel>Service Amount</FormLabel>
+                                <Input onChange={handleChange} name="serviceAmount" type='text' />
                                 <Button
                                     mt={4}
                                     colorScheme='purple'

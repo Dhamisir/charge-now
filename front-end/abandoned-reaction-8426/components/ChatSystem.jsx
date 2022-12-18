@@ -2,7 +2,9 @@ import {IoMdSend} from 'react-icons/io'
 import {AiOutlinePaperClip} from 'react-icons/ai'
 import {SlSettings} from 'react-icons/sl'
 import style from '../styles/Login.module.css'
-// import Clock from 'react-live-clock'
+import Clock from 'react-live-clock'
+import React from 'react'
+import Link from 'next/link';
 import {
     Stack,
     Popover,
@@ -19,13 +21,15 @@ import {
     Image,
     VStack
 } from '@chakra-ui/react'
-import React from 'react'
+
 
 
 export default function ChatSystem(){
     const [show, setshow] = React.useState(true)
     const [secondshow, setsecondshow] = React.useState(true)
  
+  
+
 
 
     const handleyesoption=()=>{
@@ -52,14 +56,11 @@ export default function ChatSystem(){
     <PopoverCloseButton />
     <PopoverBody width={'200px'} height={"400px"}>
      
-    {/* <Clock
-          format={'h:mm:ssa'}
-          style={{fontSize: '1.5em'}}
-          ticking={true} /> */}
     
 <Stack width={'280px'} >
+{/* <Clock format={'h:mm:ssa'} style={{fontSize: '1.5em'}} ticking={true} /> */}
   <Text  fontSize={'md'}>
-    Hey there! Would you like to chat with our billing consultant?
+    Hey there! Would you like to Use our mailing service?
 </Text>
 </Stack>
 
@@ -75,7 +76,23 @@ export default function ChatSystem(){
 
         </Flex>
       
-<Text hidden={show} marginTop={'10px'}>Sure,I'm gonna grab one of our experts for you </Text>
+<Text hidden={show} marginTop={'10px'}> Do you have an account with us </Text>
+
+<Flex hidden={show} marginTop={'10px'} justifyItems={'flex-end'}  width={'200px'}
+        marginLeft={'140px'}
+        >
+        <Button colorScheme='teal' variant='outline' width={'100px'} >
+
+        <Link href='/login'>Yes</Link>
+  
+  </Button>
+  <Button colorScheme='teal' variant='outline'>
+  <Link href='/signup'>No</Link>
+   
+  </Button>
+  </Flex>
+
+
 <Stack width={'280px'} >
   <Text hidden={secondshow}  marginTop={'10px'}>That's cool,let's see if i can help you. </Text>
 <Text hidden={secondshow} marginTop={'10px'}>What's your average revenue per user or ARPU </Text>

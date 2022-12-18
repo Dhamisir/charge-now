@@ -6,11 +6,12 @@ import {
 } from "./register.types";
 export const registerUser = (creds) => async (dispatch) => {
   dispatch({ type: REGISTER_REQUEST });
-  // const API = process.env.API;
+  // const API = process.env.NEXT_PUBLIC_API_LINK;
   console.log(creds);
+  // console.log(API)
   try {
     const res = await axios.post(
-      "http://localhost:8080/chargebee/user/register",
+      "https://chargenow-backend.onrender.com/chargebee/user/register",
       creds
     );
     const data = await res.data;

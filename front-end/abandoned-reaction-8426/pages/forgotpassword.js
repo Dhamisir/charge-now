@@ -1,5 +1,5 @@
 import { BiRightArrowAlt } from "react-icons/bi";
-import { GiEarthAmerica, GiMailShirt } from "react-icons/gi";
+import { GiEarthAmerica } from "react-icons/gi";
 import style from "../styles/Login.module.css";
 import React from "react";
 import { useRouter } from "next/Router";
@@ -29,6 +29,7 @@ export default function forgotpassword() {
   const [showinput, setshowinput] =React.useState(true)
   const [otpdetails, setotpdetails] = React.useState({})
 const [isVerified, setisAuth] = React.useState(false)
+// const [remove, setremove] = React.useState(true)
 
   //  For handling gmail input box 
  
@@ -62,8 +63,10 @@ const handleotp=(e)=>{
       });
     } 
   try {
-    const res= await axios.post('http://localhost:8080/mailer/verifyOtp',otpdetails)
+    console.log(otpdetails)
+    const res= await axios.post('https://chargenow-backend.onrender.com/mailer/verifyOtp',otpdetails)
     const data=await res.data
+    console.log(data)
     setisAuth(true)
   } catch (error) {
     console.log(error.message)
@@ -82,9 +85,11 @@ const handleotp=(e)=>{
       });
     } 
     try {
-      const res=await axios.post('http://localhost:8080/mailer/sendotp',emaildetails)
+      const res=await axios.post('https://chargenow-backend.onrender.com/mailer/sendotp',emaildetails)
       const data=await res.data
       setshowinput(false)
+      
+
     } catch (error) {
       console.log(error)
     }
@@ -151,7 +156,10 @@ const handleotp=(e)=>{
           {/* Form side  */}
 
           <VStack height={"100%"}>
-            <Stack width={"90%"} spacing={1} marginTop={"60px"}>
+            
+            <Stack width={"90%"} spacing={1} marginTop={"60px"} 
+            hidden={!showinput}
+            >
               <FormLabel fontWeight={"13px"}>
                 Your registered email address
               </FormLabel>
@@ -161,9 +169,7 @@ const handleotp=(e)=>{
                 onChange={handleChange}
                 name="email"
               />
-            </Stack>
-
-            <Button
+             <Button
               colorScheme="facebook"
               onClick={handlepass}
               width="90%"
@@ -172,9 +178,26 @@ const handleotp=(e)=>{
               Send Otp
             </Button>
             
+            </Stack>
+
+           
+            
            {/* for the otp verification purpose  */}
            
-            <Stack width={"90%"} spacing={1} marginTop={"60px"} hidden={showinput}>
+            <Stack width={"90%"} spacing={1} marginTop={"60px"} 
+            hidden={showinput}
+            >
+            <FormLabel fontWeight={"13px"}>
+             Enter your Registered Gmail
+              </FormLabel>
+              <Input
+                type="text"
+                placeholder={"Enter Your Gmail"}
+                onChange={handleotp}
+                name="email"
+              />
+           
+           
               <FormLabel fontWeight={"13px"}>
              OTP
               </FormLabel>
@@ -200,6 +223,7 @@ const handleotp=(e)=>{
               onClick={handleotpchange}
               width="90%"
               fontWeight={"10px"}
+          
             >
               Change Password 
             </Button>

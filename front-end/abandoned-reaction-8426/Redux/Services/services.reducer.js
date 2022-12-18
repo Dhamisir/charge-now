@@ -2,12 +2,14 @@ import {
   SERVICE_FAILURE,
   SERVICE_REQUEST,
   SERVICE_SUCCESS,
+  SINGLE_REQUEST,
 } from "./services.types";
 
 const initialState = {
   isLoading: false,
   isError: false,
   serviceData: [],
+  singleData: {},
 };
 
 export const serviceReducer = (state = initialState, { type, payload }) => {
@@ -33,6 +35,9 @@ export const serviceReducer = (state = initialState, { type, payload }) => {
         isLoading: false,
         isError: true,
       };
+    }
+    case SINGLE_REQUEST: {
+      return { ...state, singleData: payload.service };
     }
     default: {
       return state;

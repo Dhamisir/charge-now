@@ -6,7 +6,8 @@ import {
   AddServiceEmail,
   DelServiceEmail,
   SEND_OTP,
-  CHECK_OTP
+  CHECK_OTP,
+  UpdateUser
 } from "./login.types";
 
 let initState = {
@@ -25,6 +26,12 @@ export const loginReducer = (state = initState, { type, payload }) => {
         isLoading: true,
         isError:false,
       };
+    }
+    case UpdateUser:{
+      return {
+        ...state,
+        user:{...payload}
+      }
     }
     case LOGIN_SUCCESS: {
       return {

@@ -2,7 +2,7 @@ import { BiRightArrowAlt } from "react-icons/bi";
 import { FcGoogle } from "react-icons/fc";
 import { GiEarthAmerica } from "react-icons/gi";
 import style from "../styles/Login.module.css";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   HStack,
   SimpleGrid,
@@ -27,8 +27,8 @@ import ChatSystem  from "../components/ChatSystem"
 export default function login() {
   const { isAuth, isLoading, isError, user } = useSelector((store) => store.login);
   const [show, setShow] = React.useState(false);
-  const toast = useToast();
   const handleClick = () => setShow(!show);
+  const toast = useToast();
   const [loginCreds, setLoginCreds] = React.useState({});
   const dispatch = useDispatch();
   const router = useRouter();
@@ -52,30 +52,33 @@ export default function login() {
       dispatch(HandleLogin(loginCreds));
     }
   };
+  
+  useEffect(()=>{
+    if (isError) {
+       toast({
+        title: "Wrong Credentials",
+        description: "Incorrect Email or Password",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      })
+    }else if (isAuth) {
+        toast({
+          title: "Logged in successfully",
+          description: "Go and get exciting offers...",
+          status: "success",
+          duration: 4000,
+          isClosable: true,
+        });
+        if(user.role=='user') router.push("/dashboard/home");
+        else if (user.role=='admin') router.push("/dashboard/Services")
+        return;
+      }
+  }, [isAuth, isError])
+
   if (isLoading) {
     return (<Image src="https://flevix.com/wp-content/uploads/2020/01/Bounce-Bar-Preloader-1.gif" width={'100%'} marginTop={'-30px'}></Image>)
-  } else if (isError) {
-    toast({
-      title: "Wrong Credentials",
-      description: "Incorrect Email or Password",
-      status: "error",
-      duration: 4000,
-      isClosable: true,
-    });
-  }
-
-  if (isAuth) {
-    toast({
-      title: "Logged in successfully",
-      description: "Go and get exciting offers...",
-      status: "success",
-      duration: 4000,
-      isClosable: true,
-    });
-    if(user.role=='user') router.push("/dashboard/home");
-    else if (user.role=='admin') router.push("/dashboard/Services")
-    return;
-  }
+  } 
 
   return (
     <Stack className={style.starting}>
