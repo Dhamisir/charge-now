@@ -2,7 +2,7 @@ import { BiRightArrowAlt } from "react-icons/bi";
 import { GiEarthAmerica } from "react-icons/gi";
 import style from "../styles/Login.module.css";
 import React from "react";
-import { useRouter } from "next/Router";
+import { useRouter } from "next/router";
 import {
   HStack,
   SimpleGrid,

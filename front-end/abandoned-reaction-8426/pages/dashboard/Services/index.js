@@ -16,10 +16,10 @@ import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { serviceAction } from "../../../Redux/Services/services.actions";
 import { useEffect } from "react";
-import DashboardSidebar from "../../../components/DashboardSidebar";
+import DashboardSidebar from "../../../components/dashboardSidebar";
 import { HandleTokenLogin } from "../../../Redux/Login/login.actions";
 import axios from "axios";
-import { useRouter } from "next/Router";
+import { useRouter } from "next/router";
 import Head from 'next/head'
 const pE = [
   {
@@ -201,7 +201,7 @@ export default function Services() {
                           </Box>
                         </Box>
                         {
-                          (user.role == "admin") ? <Button onClick={() => { deleteSoftware(_id) }} m="5px" colorScheme="purple">Delete</Button> : <Link href={`/dashboard/Services/${_id}`}><Button m="5px" colorScheme="purple">Buy Now</Button></Link>
+                          (user.role == "admin") ? <Button onClick={() => { deleteSoftware(_id) }} m="5px" colorScheme="purple">Delete</Button> : <Link href={`/dashboard/services/${_id}`}><Button m="5px" colorScheme="purple">Buy Now</Button></Link>
                         }
                         {/* <Box lineHeight="1rem">Plan Created: {servicePlan}</Box> */}
                       </Box>

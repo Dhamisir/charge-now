@@ -71,7 +71,7 @@ export default function login() {
         isClosable: true,
       });
       if (user.role == 'user') router.push("/dashboard/home");
-      else if (user.role == 'admin') router.push("/dashboard/Services")
+      else if (user.role == 'admin') router.push("/dashboard/services")
       return;
     }
   }, [isAuth, isError])

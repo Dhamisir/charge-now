@@ -1,10 +1,10 @@
-import DashboardSidebar from "../../components/DashboardSidebar";
+import DashboardSidebar from "../../components/dashboardSidebar";
 import { Stack, Input, Textarea, Text, Flex, Spacer, Heading, Button, Box, Spinner, useToast } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Head from 'next/head'
 import axios from 'axios'
 import { useDispatch, useSelector } from "react-redux";
-import { useRouter } from "next/Router";
+import { useRouter } from "next/router";
 import io from 'socket.io-client'
 import { CheckIcon } from '@chakra-ui/icons'
 import { HandleTokenLogin } from "../../Redux/Login/login.actions";

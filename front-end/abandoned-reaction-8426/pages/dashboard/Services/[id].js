@@ -15,8 +15,8 @@ import { MdCheckCircle } from "react-icons/md";
 import { singleAction } from "../../../Redux/Services/services.actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { useRouter } from "next/Router";
-import DashboardSidebar from "../../../components/DashboardSidebar";
+import { useRouter } from "next/router";
+import DashboardSidebar from "../../../components/dashboardSidebar";
 import Head from 'next/head'
 export default function Details({ id }) {
   const dispatch = useDispatch();
@@ -98,7 +98,7 @@ export default function Details({ id }) {
               <Button
                 colorScheme="blue"
                 onClick={() => {
-                  nav.push("/dashboard/Services/checkout");
+                  nav.push("/dashboard/services/checkout");
                 }}
               >
                 CheckOut Page

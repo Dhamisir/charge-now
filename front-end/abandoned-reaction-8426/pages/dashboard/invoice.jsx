@@ -1,9 +1,9 @@
-import DashboardSidebar from "../../components/DashboardSidebar";
+import DashboardSidebar from "../../components/dashboardSidebar";
 import { Stack, Input, Textarea, Text, Flex, Spacer, Heading, Button, Box, Spinner, useToast } from "@chakra-ui/react";
 import { useEffect } from "react";
 import Head from 'next/head'
 import { useDispatch, useSelector } from "react-redux";
-import { useRouter } from "next/Router";
+import { useRouter } from "next/router";
 import { HandleTokenLogin } from "../../Redux/Login/login.actions";
 
 export default function Invoice() {

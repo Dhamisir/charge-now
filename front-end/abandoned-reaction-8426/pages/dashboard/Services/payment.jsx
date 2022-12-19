@@ -1,7 +1,7 @@
 import React from "react";
 import style from "../../../styles/payment.module.css";
 import { Button } from "@chakra-ui/react";
-import { useRouter } from "next/Router";
+import { useRouter } from "next/router";
 import Head from 'next/head'
 const CheckOut = () => {
   const nav = useRouter()

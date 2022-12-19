@@ -4,7 +4,7 @@ import style from "../../../styles/checkout.module.css";
 import { InfoIcon } from "@chakra-ui/icons";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import { useRouter } from "next/Router";
+import { useRouter } from "next/router";
 import { UserUpdater } from "../../../Redux/Login/login.actions";
 import Head from 'next/head'
 const API = process.env.NEXT_PUBLIC_API_LINK;
@@ -30,7 +30,7 @@ const Payment = () => {
     setTimeout(() => {
       setIsloading(false);
       setTimeout(() => {
-        nav.push("/dashboard/Services/payment");
+        nav.push("/dashboard/services/payment");
       }, 1500);
     }, 2500);
 

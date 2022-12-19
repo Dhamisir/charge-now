@@ -2,7 +2,7 @@ import { Stack, Text, Button, Box, Flex, Spacer } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { useSelector, useDispatch } from "react-redux";
 import { BiLogOut } from "react-icons/bi";
-import { useRouter } from 'next/Router'
+import { useRouter } from 'next/router'
 import { HandleLogout, HandleTokenLogin } from "../Redux/Login/login.actions";
 import { useEffect } from "react";
 
@@ -68,7 +68,7 @@ export default function DashboardSidebar() {
           </Button>
           <Button
             onClick={() => {
-              nav.push("/dashboard/Services");
+              nav.push("/dashboard/services");
             }}
           >
             Subscriptions

@@ -1,10 +1,10 @@
-import DashboardSidebar from "../../../components/DashboardSidebar";
+import DashboardSidebar from "../../../components/dashboardSidebar";
 import { Stack, Text, Flex, Spacer, Heading, Box, Input, Button, useToast, TableContainer, Table, Thead, Tr, Th, Tbody, Td } from "@chakra-ui/react";
 import Head from 'next/head'
 import SingleMailDisplay from "../../../components/SingleMailDisplay";
 import { useSelector, useDispatch } from "react-redux";
 import axios from 'axios'
-import { useRouter } from "next/Router";
+import { useRouter } from "next/router";
 import { Spinner } from '@chakra-ui/react'
 import { useEffect, useState } from "react";
 import { AddEmail, HandleTokenLogin } from '../../../Redux/Login/login.actions'
