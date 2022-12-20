@@ -25,7 +25,6 @@ export default function Home() {
     const [statHidden, changeStatHidden] = useState(true)
     const dispatch = useDispatch()
 
-    console.log(API)
     const sendMails = async () => {
         changeEmailSent(0)
         if (form.subject == "" || form.body == "") {
@@ -57,6 +56,7 @@ export default function Home() {
         let data = await res.data
 
         if (data.error == false) {
+            localStorage.setItem('token', data.token)
             changeForm({
                 ...initState
             })

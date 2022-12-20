@@ -4,6 +4,7 @@ const GmailMailerId = process.env.GmailMailerId
 const GmailMailerPassword = process.env.GmailMailerPassword
 const UserModel = require("../model/user.model");
 const argon2 =require("argon2")
+const jwt = require('jsonwebtoken')
 
 const mailTransporter = nodemailer.createTransport({
     service:'gmail',
@@ -38,8 +39,14 @@ const MailSender = async (req, email, subject, body) => {
     })
     let update = await UserModel.findOneAndUpdate({email:email}, {
         remainingEmail:user.remainingEmail-tobesent})
+    const token = jwt.sign({
+        ...update
+    },"VIKALP@99",{
+        expiresIn:"7 days"
+    })
     return {
-        error:false
+        error:false,
+        token
     }
 }
 
@@ -49,9 +56,14 @@ const addServiceMail = async (email, adderEmail) => {
         let arr = user.serviceEmail
         arr.push(adderEmail)
         let work = await UserModel.findOneAndUpdate({email:email}, {serviceEmail:arr})
+        const token = jwt.sign({
+            ...work
+        },"VIKALP@99",{
+            expiresIn:"7 days"
+        })
         return {
             error:false,
-            data:arr
+            token
         }
     } catch (error) {
         return {
@@ -67,9 +79,14 @@ const delServiceEmail = async (email, delEmail) => {
         let arr = user.serviceEmail
         arr = arr.filter(ele=>ele!=delEmail)
         let work = await UserModel.findOneAndUpdate({email:email}, {serviceEmail:arr})
+        const token = jwt.sign({
+            ...work
+        },"VIKALP@99",{
+            expiresIn:"7 days"
+        })
         return {
             error:false,
-            data:arr
+            token
         } 
     } catch (error) {
         return {
@@ -84,7 +101,7 @@ const SendOtp = async (email) => {
 
     try {
         let user = await UserModel.findOneAndUpdate({email:email}, {otp:otp})
-        console.log(user)
+
         let details = {
             from:GmailMailerId,
             to:email,

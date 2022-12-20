@@ -4,20 +4,21 @@ import axios from 'axios'
 import {useSelector, useDispatch} from 'react-redux'
 import {DelEmail} from '../Redux/Login/login.actions'
 import { useToast } from '@chakra-ui/react';
-
+let API = process.env.NEXT_PUBLIC_API_LINK;
 export default function SingleMailDisplay({email}) {
     const toast = useToast()
     const {user} = useSelector(state=>state.login)
     const dispatch = useDispatch()
 
     const handleDelEmail = async ()=>{
-        const res = await axios.post('http://localhost:8080/mailer/delServiceEmail', {
+        const res = await axios.post(`${API}/mailer/delServiceEmail`, {
             "email":user.email,
             "delEmail":email
         })
         let data = await res.data
 
         if(!data.error){
+          localStorage.setItem('token', data.token)
             dispatch(DelEmail(data.serviceEmail))
             toast({
                 position: 'bottom-left',

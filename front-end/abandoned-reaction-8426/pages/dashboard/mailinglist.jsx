@@ -36,6 +36,7 @@ export default function Home() {
         const data = await res.data
 
         if(!data.error){
+            localStorage.setItem('token', data.token)
             dispatch(AddEmail(data.serviceEmail))
             toast({
                 position: 'bottom-left',

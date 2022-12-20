@@ -17,7 +17,6 @@ const Payment = () => {
   const dispatch = useDispatch();
 
   const checkout = async () => {
-    console.log(user.email, singleData._id)
     let res = await axios.post(`${API}/chargebee/service/addservice`, {
       email: user.email,
       softwareId: singleData._id,
@@ -25,7 +24,6 @@ const Payment = () => {
 
     let data = await res.data;
     localStorage.setItem("token", data.token);
-    console.log(data)
     setIsloading(true);
     setTimeout(() => {
       setIsloading(false);
