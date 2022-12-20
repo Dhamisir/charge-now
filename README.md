@@ -26,7 +26,7 @@ Charge Now is a bulk mailing web service where user can create a mailing list an
 <li>Redux</li>
 </ul>
 
-## Installation Requirenments
+## Installation Requirements
 <ol>
 <li>Fork the repo, then clone it</li>
 <li>Use 'npm install' to install all the dependencies</li>
