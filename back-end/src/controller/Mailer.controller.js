@@ -63,7 +63,8 @@ const addServiceMail = async (email, adderEmail) => {
         })
         return {
             error:false,
-            token
+            token,
+            serviceEmail:arr
         }
     } catch (error) {
         return {
@@ -86,7 +87,8 @@ const delServiceEmail = async (email, delEmail) => {
         })
         return {
             error:false,
-            token
+            token,
+            serviceEmail:arr
         } 
     } catch (error) {
         return {

@@ -21,7 +21,7 @@ router.post('/addServiceEmail', async (req, res)=>{
     let work = await addServiceMail(email, adderEmail)
 
     if(!work.error){
-        res.status(200).send({error:false, msg:'Email added successfully', token:work.token})
+        res.status(200).send({error:false, msg:'Email added successfully', token:work.token, serviceEmail:work.serviceEmail})
     } else {
         res.status(200).send({error:true, msg:work.msg})
     }
@@ -33,7 +33,7 @@ router.post('/delServiceEmail', async (req, res)=>{
     let work = await delServiceEmail(email, delEmail)
 
     if(!work.error){
-        res.status(200).send({error:false, msg:'Email deleted successfully', token:work.token})
+        res.status(200).send({error:false, msg:'Email deleted successfully', token:work.token, serviceEmail:work.serviceEmail})
     } else {
         res.status(200).send({error:true, msg:work.msg})
     }
@@ -68,5 +68,5 @@ router.post('/verifyOtp', async (req, res)=>{
     })
 })
 
-module.expors = router
+module.exports = router
 

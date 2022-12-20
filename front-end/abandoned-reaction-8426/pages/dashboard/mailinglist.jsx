@@ -17,7 +17,7 @@ export default function Home() {
     const [email, changeEmail] = useState('')
     const nav = useRouter()
     const [error, changeError] = useState('')
-
+    
     const handleAddEmail = async () => {
         changeError('')
         if(email==''){
