@@ -68,5 +68,5 @@ router.post('/verifyOtp', async (req, res)=>{
     })
 })
 
-module.expors = router
+module.exports = router
 
