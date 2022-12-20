@@ -2,8 +2,16 @@
 Chargebee is a subscription management system which can help you handle all the aspects of the subscription life cycle including recurring billing, invoicing and trial management for your customers.
 
 Collaborative Project: accomplished with a team of 4 members
+
+-> Nandlal Saw
+-> Sankarshan Goswami
+-> Vikalp Shandilya
+-> Saksham Selwal
+
 Duration: 7 Days
+
 Tech stack used: Next js, Redux, Nodejs, Express, MongoDB
+
 Role: Landing Page, Pricing Page, Admin User Page, Admin Add Service Page
 
 
