@@ -10,10 +10,12 @@ import {
     useColorModeValue,
     IconButton,
 } from '@chakra-ui/react';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi';
 import { useRef } from 'react';
 import { useState } from 'react';
+import { useEffect } from 'react';
+import { TextComponent } from './TextCompont';
 const sliderData = [
     {
         heading: "The subscription management platform that enabled Slidebean to slide into 30+ countries.",
@@ -39,11 +41,28 @@ const sliderData = [
 
 export default function Hero() {
     let data = sliderData[0]
-    // console.log(data)
     const [header, setHeader] = useState(data)
-    let ref = useRef(0);
+    let ref = useRef(0)
+    let timerRef = useRef(null)
+
+    useEffect(()=>{
+        if(timerRef.current==null){
+            timerRef.current = setInterval(()=>{
+                ref.current += 1
+                if(ref.current==sliderData.length){
+                    ref.current = 0
+                }
+                setHeader(sliderData[ref.current])
+            }, 5000)
+        }
+
+        return ()=>{
+            clearInterval(timerRef.current)
+            timerRef.current = null
+        }
+    }, [])
     return (
-        <Container maxW={'7xl'} position="relative">
+        <Container pl='5vw' h='75vh' fontFamily={'MAIN'}  maxW={'7xl'} position="relative">
             {/* left icon */}
             <IconButton
                 disabled={ref.current == 0}
@@ -53,7 +72,7 @@ export default function Hero() {
                 transform={'translate(0%, -50%)'}
                 zIndex={2}
                 left="0"
-                bottom="10"
+                bottom="0"
                 onClick={() => setHeader(sliderData[ref.current -= 1])}>
                 <BiLeftArrowAlt size="40px" />
             </IconButton>
@@ -65,28 +84,18 @@ export default function Hero() {
                 transform={'translate(0%, -50%)'}
                 zIndex={2}
                 right="0"
-                bottom="10"
+                bottom="0"
                 onClick={() => setHeader(sliderData[ref.current += 1])}>
                 <BiRightArrowAlt size="40px" />
             </IconButton>
             <Stack
                 align={'center'}
                 spacing={{ base: 8, md: 10 }}
-                py={{ base: 20, md: 28 }}
+                py={{ base: 20, md: 25 }}
                 direction={{ base: 'column', md: 'row' }}>
                 <Stack flex={1} spacing={{ base: 5, md: 10 }}>
-                    <Heading
-                        lineHeight={1.1}
-                        fontWeight={600}
-                        fontSize={{ base: 'xl', sm: '2xl', lg: '4xl' }}>
-                        <Text
-                            as={'span'}
-                            position={'relative'}
-                        >
-                            {header.heading}
-                        </Text>
-                    </Heading>
-                    <Text color={'gray.500'}>
+                    <TextComponent text={ header.heading } />
+                    <Text textAlign={'left'} color={'gray.500'}>
                         Chargebee is the subscription billing and revenue management platform that lets you solve for your today, and scale for your tomorrow.
                     </Text>
                     <Stack
@@ -132,6 +141,7 @@ export default function Hero() {
                         w={'300px'}
                         h={'100%'}
                         src={header.img}
+                        borderRadius={'30px'}
                     />
                 </Flex>
             </Stack>

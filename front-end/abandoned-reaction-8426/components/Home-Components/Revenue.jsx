@@ -55,7 +55,7 @@ export default function Revenue() {
         <>
             {
                 revenueData.map((ele) => (
-                    <Grid alignItems="center" w={{ base: "90%", md: "60%" }} m="30px auto" templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2,1fr)' }} gap={6}>
+                    <Grid  fontFamily={'MAIN'} alignItems="center" w={{ base: "90%", md: "60%" }} m="30px auto" templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2,1fr)' }} gap={6}>
                         <GridItem w='100%'>
                             <Text fontWeight="bold" fontSize='xl'>{ele.heading}</Text>
                             <Text m="20px 0px " fontSize='md'>{ele.para}</Text>

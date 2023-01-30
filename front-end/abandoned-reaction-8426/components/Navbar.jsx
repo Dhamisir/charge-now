@@ -35,7 +35,7 @@ export default function Navbar() {
                     Charge Now
                 </title>
             </Head>
-            <Box>
+            <Box  fontFamily={'MAIN'} >
                 <Flex
                     bg={useColorModeValue('white', 'gray.800')}
                     color={useColorModeValue('black.600', 'white')}

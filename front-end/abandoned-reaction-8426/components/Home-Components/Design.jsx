@@ -26,7 +26,7 @@ const designData = [
 const Design = () => {
     return (
         <>
-            <Grid alignItems="center" w="80%" m="50px auto" templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }} gap={6}>
+            <Grid fontFamily={'MAIN'}  alignItems="center" w="80%" m="50px auto" templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }} gap={6}>
                 <GridItem p="10%" w='100%' >
                     <Heading m="20px" fontSize="2xl">Designed to go Beyond Billing.
                     </Heading>

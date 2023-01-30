@@ -87,7 +87,7 @@ export default function login() {
           Charge Now / Login
         </title>
       </Head>
-      <Stack className={style.starting}>
+      <Stack fontFamily={'MAIN'} className={style.starting}>
         <VStack>
           <HStack margin={"auto"} justifyContent={"space-between"} width={"90%"}>
             <Stack>

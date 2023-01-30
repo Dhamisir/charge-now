@@ -4,7 +4,7 @@ import { BiMailSend } from "react-icons/bi"
 const Subscription = () => {
     return (
         <>
-            <Box p={{ base: "0px", sm: "50px" }} w="80%" m="30px auto">
+            <Box fontFamily={'MAIN'}  p={{ base: "0px", sm: "50px" }} w="80%" m="30px auto">
                 <Grid alignItems="center" templateColumns={{ base: 'repeat(1, 1fr)', lg: 'repeat(2, 1fr)' }} gap={6}>
                     <GridItem w='100%'>
                         <Heading>Get a Demo Customized to Your Subscription Workflow</Heading>

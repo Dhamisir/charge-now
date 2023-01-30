@@ -11,7 +11,7 @@ export default function Home() {
     <>
 
       <Navbar />
-      <Box textAlign="center" p="20px">
+      <Box fontFamily={'MAIN'} textAlign="center" p="20px">
         <Hero />
         <Design />
         <Heading >Streamline Revenue Operations</Heading>

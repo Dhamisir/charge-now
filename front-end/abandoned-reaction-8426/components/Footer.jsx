@@ -13,7 +13,7 @@ import {
 
 const Logo = () => {
     return (
-        <Box w={{ base: "15%", md: "5%" }}>
+        <Box fontFamily={'MAIN'}  w={{ base: "15%", md: "5%" }}>
             <Link href="/">
                 <Image src='https://user-images.githubusercontent.com/96005514/207302177-50735bbb-84cc-4e33-9d53-81460dfc4258.png' alt='Charge Now' />
             </Link>
