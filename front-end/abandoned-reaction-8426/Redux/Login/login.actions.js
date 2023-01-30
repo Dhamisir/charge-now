@@ -9,7 +9,7 @@ import {
   UpdateUser
 } from "./login.types";
 let API = process.env.NEXT_PUBLIC_API_LINK;
-console.log(API)
+// console.log(API)
 export const HandleLogin = (creds) => async (dispatch) => {
   dispatch({ type: LOGIN_REQUEST });
   try {
@@ -18,11 +18,19 @@ export const HandleLogin = (creds) => async (dispatch) => {
       creds
     );
     const data = await res.data;
-    localStorage.setItem('token', data.token)
-    return dispatch({
-      type: LOGIN_SUCCESS,
-      payload: data.user,
-    });
+    console.log(data)
+    if(!data.error){
+      localStorage.setItem('token', data.token)
+      return dispatch({
+        type: LOGIN_SUCCESS,
+        payload: data.user,
+      }); 
+    } else {
+      return dispatch({
+        type: LOGIN_ERROR,
+        payload: data.msg,
+      });
+    }
   } catch (error) {
     return dispatch({
       type: LOGIN_ERROR,
@@ -39,7 +47,7 @@ export const AddEmail = (newEmail) => {
 };
 
 export const UserUpdater = (user)=>{
-  console.log(user)
+  
   return {
     type:UpdateUser,
     payload:user
@@ -51,7 +59,6 @@ export const HandleTokenLogin = () => async (dispatch) => {
   try {
     let res = await axios.get(`${API}/chargebee/user/verifytoken/${token}`)
     let data = await res.data
-
     if(!data.error){
       return dispatch({
         type: LOGIN_SUCCESS,

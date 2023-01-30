@@ -16,13 +16,18 @@ exports.register=async(req,res)=>{
            
     }
     catch(e){
-     console.log(e.meassage)
+     console.log(e.message)
     }
 }
 
 exports.login=async(req,res)=>{
     const {email, password}= req.body;
     const user= await User.findOne({email});
+
+    if(user==null){
+        return res.status(201).send({msg:'User not found', error:true})
+    }
+
     if(await argon2.verify(user.password,password)){
         const token= jwt.sign({
             ...user
@@ -32,10 +37,10 @@ exports.login=async(req,res)=>{
         const refreshToken=jwt.sign({id:user._id},"REFRESHSECRET",{
             expiresIn:"28 days"
         })
-        return res.send({message:"Login success",token, refreshToken, user:user})
+        return res.send({message:"Login success",token, refreshToken, user:user, error:false})
     }
 
-    return res.status(401).send("Invalid credentials");
+    return res.status(201).send({error:true, msg:"Invalid credentials"});
 }
 
 

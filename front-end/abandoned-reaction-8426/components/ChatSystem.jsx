@@ -26,11 +26,6 @@ import {
 export default function ChatSystem(){
     const [show, setshow] = React.useState(true)
     const [secondshow, setsecondshow] = React.useState(true)
- 
-  
-
-
-
     const handleyesoption=()=>{
       setshow(false)
     }
@@ -38,16 +33,11 @@ export default function ChatSystem(){
    setsecondshow(false)
     }
     return(
-<Stack position={'fixed'} bottom={'30px'} right={'40px'}>
+<Stack fontFamily={'MAIN'} position={'fixed'} bottom={'30px'} right={'40px'}>
 
 <Popover placement='top-start' >
   <PopoverTrigger>
-   
-    <Image boxSize='70px'  src="https://th.bing.com/th/id/OIP.iqNsbMZD0K7PR6VpUJhNhgHaHa?w=152&h=183&c=7&r=0&o=5&dpr=1.3&pid=1.7"></Image>
-   
-   
-    
-   
+    <Image borderRadius={'50%'} boxSize='70px'  src="https://th.bing.com/th/id/OIP.iqNsbMZD0K7PR6VpUJhNhgHaHa?w=152&h=183&c=7&r=0&o=5&dpr=1.3&pid=1.7"></Image>
   </PopoverTrigger>
   <PopoverContent>
     <PopoverHeader backgroundColor={"blue.500"} color={'white'} fontWeight='lg'>Chat with Chargbee</PopoverHeader>

@@ -11,8 +11,6 @@ export default function Invoice() {
     const nav = useRouter()
     const dispatch = useDispatch()
 
-    console.log(user)
-
     useEffect(()=>{
         let token = localStorage.getItem('token')
         if(!isAuth && token==null){
@@ -36,6 +34,7 @@ export default function Invoice() {
         <Flex
             backgroundColor={'#EAEAF4'}
             overflow={'hidden'}
+            fontFamily={'MAIN'}
         >
             <DashboardSidebar />
             <Spacer></Spacer>

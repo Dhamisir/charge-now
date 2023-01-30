@@ -114,7 +114,7 @@ export default function forgotpassword() {
           Charge Now / Forgot Password
         </title>
       </Head>
-      <Stack className={style.starting}>
+      <Stack fontFamily={'MAIN'} className={style.starting}>
         <VStack>
           <HStack margin={"auto"} justifyContent={"space-between"} width={"90%"}>
             <Stack>

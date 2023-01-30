@@ -83,7 +83,7 @@ export default function Services() {
             Charge Now / Services
           </title>
         </Head>
-        <Flex>
+        <Flex fontFamily={'MAIN'}>
           <DashboardSidebar />
           <Stack w="80%" h="621px" spacing="30px" marginLeft="20.5%">
             <Stack

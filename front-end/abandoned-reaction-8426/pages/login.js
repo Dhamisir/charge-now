@@ -70,21 +70,30 @@ export default function login() {
         duration: 4000,
         isClosable: true,
       });
-      if (user.role == 'user') router.push("/dashboard/home");
-      else if (user.role == 'admin') router.push("/dashboard/services")
+      if (user?.role == 'user') router.push("/dashboard/home");
+      else if (user?.role == 'admin') router.push("/dashboard/services")
       return;
     }
   }, [isAuth, isError])
 
   if (isLoading) {
-    return (<Image src="https://flevix.com/wp-content/uploads/2020/01/Bounce-Bar-Preloader-1.gif" width={'100%'} marginTop={'-30px'}></Image>)
+    return (
+      <>
+      <Head>
+        <title>
+          Charge Now | Login
+        </title>
+      </Head>
+      <Image src="https://flevix.com/wp-content/uploads/2020/01/Bounce-Bar-Preloader-1.gif" width={'100%'} marginTop={'-30px'}></Image>
+      </>
+    )
   }
 
   return (
     <>
       <Head>
         <title>
-          Charge Now / Login
+          Charge Now | Login
         </title>
       </Head>
       <Stack fontFamily={'MAIN'} className={style.starting}>
@@ -101,7 +110,7 @@ export default function login() {
             </Stack>
 
             <Flex>
-              <Text as="i" marginTop={"10px"}>Don't have an account? </Text>
+              <Text as="i" mr='10px' mt={"10px"}>Don't have an account? </Text>
               <Button backgroundColor={'none'}>
                 <Link href="/signup">Sign up</Link>{" "}
                 <BiRightArrowAlt fontSize={"25px"} marginTop={'40px'}></BiRightArrowAlt>
@@ -112,7 +121,7 @@ export default function login() {
           <SimpleGrid
             columns={[1, 1, 1, 2]}
             height={"450px"}
-            w={"50%"}
+            w={"65%"}
             margin={"auto"}
             marginTop={"80px"}
             spacing={"20px"}

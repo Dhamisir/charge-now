@@ -49,6 +49,7 @@ export default function SingleMailDisplay({email}) {
             p='15px'
             borderRadius={'10px'}
             w='100%'
+            fontFamily={'MAIN'}
             >
             <Box 
             backgroundColor='purple'

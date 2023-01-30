@@ -65,6 +65,7 @@ export default function Home() {
                     </title>
                 </Head>
                 <Flex
+                 fontFamily={'MAIN'}
                     backgroundColor={'#EAEAF4'}
                 >
                     <DashboardSidebar />

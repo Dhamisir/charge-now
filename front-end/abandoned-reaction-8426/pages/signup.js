@@ -90,11 +90,11 @@ export default function signup() {
     <>
       <Head>
         <title>
-          Charge Now / Signup
+          Charge Now | Signup
         </title>
       </Head>
       <Stack>
-        <SimpleGrid columns={[1, 1, 1, 2]} height={"auto"}>
+        <SimpleGrid fontFamily={'MAIN'} columns={[1, 1, 1, 2]} height={"auto"}>
           <VStack
             width={"65%"}
             className={style.main}

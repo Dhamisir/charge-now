@@ -39,7 +39,7 @@ export default function Details({ id }) {
           Charge Now / Single Service
         </title>
       </Head>
-      <Flex>
+      <Flex fontFamily={'MAIN'}>
         <DashboardSidebar />
         <Box bgColor="gray.200" marginLeft="20.5%" w="100% ">
           <Flex gap="1rem">

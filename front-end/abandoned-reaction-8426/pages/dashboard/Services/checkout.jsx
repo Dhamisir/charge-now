@@ -50,6 +50,7 @@ const Payment = () => {
           marginTop: "30px",
           marginBottom: "15px",
           marginLeft: "70px",
+          fontFamily: 'MAIN'
         }}
       >
         Checkout

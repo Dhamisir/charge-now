@@ -45,6 +45,7 @@ export const loginReducer = (state = initState, { type, payload }) => {
     case LOGIN_ERROR: {
       return {
         ...state,
+        isAuth:false,
         isError: true,
         isLoading:false,
         errorMessage:payload,

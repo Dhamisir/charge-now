@@ -86,6 +86,7 @@ export default function Home() {
         <Flex
             backgroundColor={'#EAEAF4'}
             h='700px'
+            fontFamily={'MAIN'}
         >
             <DashboardSidebar />
             <Spacer></Spacer>

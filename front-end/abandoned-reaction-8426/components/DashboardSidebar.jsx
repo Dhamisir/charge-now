@@ -36,6 +36,7 @@ export default function DashboardSidebar() {
         p='0.5%'
         pt='1%'
         pb='2%'
+        fontFamily={'MAIN'}
       >
         <Stack
           backgroundColor='#2C0069'
@@ -68,7 +69,7 @@ export default function DashboardSidebar() {
           </Button>
           <Button
             onClick={() => {
-              nav.push("/dashboard/services");
+              nav.push("/dashboard/Services");
             }}
           >
             Subscriptions

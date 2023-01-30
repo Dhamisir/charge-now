@@ -29,7 +29,7 @@ export default function contact() {
   
   
     return (
-    <Stack className={style.mainpagehaicont}>
+    <Stack fontFamily={'MAIN'} className={style.mainpagehaicont}>
       <Navbar />
       <Center>
         <Flex
